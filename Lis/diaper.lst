@@ -1,0 +1,1232 @@
+C51 COMPILER V9.52.0.0   DIAPER                                                            11/16/2018 11:01:04 PAGE 1   
+
+
+C51 COMPILER V9.52.0.0, COMPILATION OF MODULE DIAPER
+OBJECT MODULE PLACED IN .\Obj\diaper.obj
+COMPILER INVOKED BY: C:\Keil_v5\C51\BIN\C51.EXE Source\diaper.c LARGE REGFILE(.\Obj\Stepper.ORC) BROWSE INCDIR(.\Header)
+                    - DEBUG OBJECTEXTEND PRINT(.\Lis\diaper.lst) TABS(2) OBJECT(.\Obj\diaper.obj)
+
+line level    source
+
+   1          #include "stc15f2k60s2.h"
+   2          #include "diaper.h"
+   3          #include <intrins.h>
+   4          #include "math.h"
+   5          #include "stdio.h"
+   6          
+   7          
+   8          
+   9          const uint8   CHS[] =
+  10          {
+  11            4, 5, 6, 7
+  12          };
+  13          
+  14          
+  15          extern uint8  onePageChValue[512];
+  16          extern uint8  chReadCount;
+  17          extern uint32 pageWriteCount;
+  18          f2i       prevMovAvg[4];
+  19          
+  20          //uint8 NUMEVENT;                     //ADDR_NUMEVENT
+  21          uint32      MOVINGAVERAGE[4] =
+  22          {
+  23            10, 10, 10, 10
+  24          };
+  25          
+  26          
+  27          //ADDR_MOVINGAVERAGE
+  28          uint32      LIFESPAN_US = 0; //ADDR_LIFESPAN_US
+  29          uint32      LIFESPAN = 4; //ADDR_LIFESPAN TODO: need to change to new updata life span func
+  30          uint8     COUNT = 0; //ADDR_COUNT
+  31          uint8     ALERTTRYAGAIN = 0; //ADDR_ALERTTRYAGAIN
+  32          uint32      TRIGERCHS = 0; //ADDR_TRIGERCHS
+  33          uint32      TRIGERCHS_GLOBAL = 0; //ADDR_TRIGERCHS_GLOBAL
+  34          uint32      DIFF[4]; //ADDR_DIFF
+  35          uint32      MAXDIFF[4] =
+  36          {
+  37            0, 0, 0, 0
+  38          };
+  39          
+  40          
+  41          //ADDR_MAXDIFF
+  42          uint32      MAXAVER[4] =
+  43          {
+  44            0, 0, 0, 0
+  45          };
+  46          
+  47          
+  48          //ADDR_MAXAVER
+  49          uint32      BILLBOARD = 0; //ADDR_BILLBOARD
+  50          
+  51          //CHSTATES CHSSTATE;            //ADDR_CHSSTATE
+  52          CHSTATES    currStates;
+  53          
+  54          uint32      SumTotal[4] =
+C51 COMPILER V9.52.0.0   DIAPER                                                            11/16/2018 11:01:04 PAGE 2   
+
+  55          {
+  56            0, 0, 0, 0
+  57          };
+  58          
+  59          
+  60          //ADDR_ALLACC
+  61          uint16      MAX[4] =
+  62          {
+  63            0, 0, 0, 0
+  64          };
+  65          
+  66          
+  67          //ADDR_MAX
+  68          extern uint8  rx1Buffer[rx1BufferLength];
+  69          extern uint8  tx1Buffer[tx1BufferLength];
+  70          extern uint16 timeStamp;
+  71          extern uint16 batteryVoltage;
+  72          
+  73          uint8     result[4] =
+  74          {
+  75            0, 0, 0, 0
+  76          };
+  77          
+  78          
+  79          uint8 debugInfo_Ch_Value[16] = {0};
+  80          
+  81          
+  82          /*************************************************
+  83          Function: ReadAndProcessData
+  84          Description: process the data and make a conclusion ,return a flag if sensing the event
+  85          Input :NONE
+  86          Output:NONE
+  87          Return:
+  88               0    there is no event
+  89              XXXX    the i th bit shows that in ith channel there is a event
+  90          *************************************************/
+  91          
+  92          uint8 t_count = 0;
+  93          
+  94          uint8 ReadAndProcessData(uint16 * chvalues)
+  95          {
+  96   1        uint8     flag;
+  97   1        uint16      val[4];
+  98   1        uint16      val2[4];
+  99   1        uint8     i = 0, j = 0;
+ 100   1        f2i       oldAvag, oldMaxAvag, oldMaxDiff, newAvag, curDiff;
+ 101   1        uint16      arraySubOffset;
+ 102   1        
+ 103   1        flag        = 0;
+ 104   1        P54         = 1;
+ 105   1        
+ 106   1        delayMs(1);
+ 107   1        
+ 108   1        for (i = 0; i < 4; i++)
+ 109   1        {
+ 110   2          arraySubOffset    = chReadCount * 4;
+ 111   2          
+ 112   2          //P54         = 1;
+ 113   2          val[i]        = ADC_GetResult(CHS[i]);
+ 114   2          chvalues[i]     = val[i];
+ 115   2          //P54         = 0;
+ 116   2          
+C51 COMPILER V9.52.0.0   DIAPER                                                            11/16/2018 11:01:04 PAGE 3   
+
+ 117   2          onePageChValue[arraySubOffset + 1] = val[i] >> 8;
+ 118   2          onePageChValue[arraySubOffset + 0] = val[i];
+ 119   2          
+ 120   2          val2[i]       = ADC_GetResult(CHS[i]);
+ 121   2      
+ 122   2          //val3[i]           = ((val2[i] << 16) +val[1]);
+ 123   2          onePageChValue[arraySubOffset + 3] = val2[i] >> 8;
+ 124   2          onePageChValue[arraySubOffset + 2] = val2[i];
+ 125   2      
+ 126   2      
+ 127   2          
+ 128   2          // only for debug 
+ 129   2          // -------- begin debug info --------
+ 130   2          // (onePageChValue + arraySubOffset)[0] = t_count;
+ 131   2          // (onePageChValue + arraySubOffset)[1] = t_count;    
+ 132   2          // (onePageChValue + arraySubOffset)[2] = t_count;    
+ 133   2          // (onePageChValue + arraySubOffset)[3] = t_count;      
+ 134   2          
+ 135   2          (debugInfo_Ch_Value + i*4)[0] = (onePageChValue + arraySubOffset)[0];
+ 136   2          (debugInfo_Ch_Value + i*4)[1] = (onePageChValue + arraySubOffset)[1];
+ 137   2          (debugInfo_Ch_Value + i*4)[2] = (onePageChValue + arraySubOffset)[2];
+ 138   2          (debugInfo_Ch_Value + i*4)[3] = (onePageChValue + arraySubOffset)[3]; 
+ 139   2          // -------- end debug info --------
+ 140   2          
+ 141   2          
+ 142   2          //debug code    
+ 143   2          //      printf("%8hd", val[i])
+ 144   2          //debug code end
+ 145   2          oldAvag.i     = MOVINGAVERAGE[i];   //ReadRTCMem(ADDR_MOVINGAVERAGE+i);
+ 146   2          oldMaxAvag.i    = MAXAVER[i];     //ReadRTCMem(ADDR_MAXAVER+i);
+ 147   2          oldMaxDiff.i    = MAXDIFF[i];     //ReadRTCMem(ADDR_MAXDIFF+i);
+ 148   2      
+ 149   2          prevMovAvg[i].i   = oldAvag.i;
+ 150   2      
+ 151   2          // newAve[i]=((oldAve[i]<<4)-oldAve[i]+(temp[i]&0xffff))>>4;
+ 152   2          // newAve[i]=((oldAve[i]<<3)-oldAve[i]+(temp[i]&0xffff))>>3;
+ 153   2          if (val[i] > oldAvag.f)
+ 154   2            newAvag.f = (oldAvag.f * 15 + val[i]) / 16.0;
+ 155   2          else 
+ 156   2            newAvag.f = (oldAvag.f * 63 + val[i]) / 64.0;
+ 157   2      
+ 158   2          curDiff.f     = val[i] -newAvag.f;
+ 159   2      
+ 160   2          if (curDiff.f > oldMaxDiff.f) //WriteRTCMem((ADDR_MAXDIFF+i),diff[i].i);
+ 161   2      
+ 162   2          //memManager.save_MaxDifference(m_chn, curDiff.i);
+ 163   2            MAXDIFF[i] = curDiff.i;
+ 164   2      
+ 165   2          if (newAvag.f > oldMaxAvag.f) //WriteRTCMem((ADDR_MAXAVER+i),newAve[i].i);
+ 166   2      
+ 167   2          //memManager.save_MaxAverage(m_chn, newAvag.i);
+ 168   2            MAXAVER[i] = newAvag.i;
+ 169   2      
+ 170   2      
+ 171   2          //memManager.save_MovingAverage(m_chn, newAvag.i);
+ 172   2          //memManager.save_CurrentDifference(m_chn, curDiff.i);
+ 173   2          MOVINGAVERAGE[i]  = newAvag.i;
+ 174   2          DIFF[i]       = curDiff.i;
+ 175   2      
+ 176   2          //SumTotal[i] += val[i] - DEFAULT_MOVING_AVERAGE;
+ 177   2          if (val[i] > MAX[i])
+ 178   2          {
+C51 COMPILER V9.52.0.0   DIAPER                                                            11/16/2018 11:01:04 PAGE 4   
+
+ 179   3            MAX[i]        = val[i];
+ 180   3          }
+ 181   2      
+ 182   2      
+ 183   2          //put val[i] into OnePageChValue buffer
+ 184   2          if (chReadCount < 127)
+ 185   2          {
+ 186   3            chReadCount++;
+ 187   3          }
+ 188   2          else 
+ 189   2          {
+ 190   3                chReadCount     = 0;
+ 191   3            iapEraseSector((pageWriteCount * 512));
+ 192   3            iapWriteByte((pageWriteCount * 512), onePageChValue, 512);
+ 193   3      
+ 194   3            pageWriteCount++;
+ 195   3          }
+ 196   2      
+ 197   2      
+ 198   2      
+ 199   2          if (curDiff.f > DIFF_EVENTTHRESHOLD)
+ 200   2            flag = flag + (1 << i);
+ 201   2      
+ 202   2      
+ 203   2      /*
+ 204   2      #ifdef PRINTF_DEBUG
+ 205   2      
+ 206   2          if (curDiff.f > DIFF_EVENTTHRESHOLD)
+ 207   2          {
+ 208   2            printf("%g ", curDiff.f);
+ 209   2            printf("\r\n");
+ 210   2          }
+ 211   2      
+ 212   2      #endif
+ 213   2      */
+ 214   2      
+ 215   2      
+ 216   2          //    #ifndef PRINTF_DEBUG
+ 217   2          //    
+ 218   2          //    if (curDiff.f > DIFF_EVENTTHRESHOLD)
+ 219   2          //      {
+ 220   2          //      //    tx1Buffer[0]    = (curDiff.i >> 24);
+ 221   2          //      //    tx1Buffer[1]    = (curDiff.i >> 16);
+ 222   2          //      //    tx1Buffer[2]    = (curDiff.i >> 8);
+ 223   2          //      //    tx1Buffer[3]    = (curDiff.i);
+ 224   2          //      //    uart1SendPackage(tx1Buffer, 4);
+ 225   2          //      tx1Buffer[0]    = flag;
+ 226   2          //      uart1SendPackage(tx1Buffer, 1);
+ 227   2          //    
+ 228   2          //    
+ 229   2          //      }
+ 230   2          //    
+ 231   2          //    
+ 232   2          //    #endif
+ 233   2        }
+ 234   1      
+ 235   1        P54         = 0;
+ 236   1        
+ 237   1        t_count ++;
+ 238   1        
+ 239   1        return flag;
+ 240   1      
+C51 COMPILER V9.52.0.0   DIAPER                                                            11/16/2018 11:01:04 PAGE 5   
+
+ 241   1      }
+ 242          
+ 243          
+ 244          uint32 State3_new2(void)
+ 245          {
+ 246   1      
+ 247   1        uint16      chvalues[4];
+ 248   1        uint8     newEventFlag = 0;
+ 249   1        uint32      currSnap = 0;
+ 250   1        uint32      smState = 0;
+ 251   1        uint8     i;
+ 252   1      
+ 253   1        uint32      mask = 0;
+ 254   1        uint32      state = 0;
+ 255   1        uint32      cnt = 0;
+ 256   1      
+ 257   1        uint8     triggered_Yellow = 0;
+ 258   1        uint8     triggered_Orange = 0;
+ 259   1        uint8     triggered_Red = 0;
+ 260   1        uint8     triggered_FlashRed = 0;
+ 261   1      
+ 262   1        uint8     triggered_Yellow_Mask = 0;
+ 263   1        uint8     triggered_Orange_Mask = 0;
+ 264   1        uint8     triggered_Red_Mask = 0;
+ 265   1        uint8     triggered_FlashRed_Mask = 0;
+ 266   1      
+ 267   1      
+ 268   1        //CHSTATES  currStates;
+ 269   1        //TODO: need to change to new updata life span func
+ 270   1        //record the timestamp in the beginning
+ 271   1        LIFESPAN      += 4;
+ 272   1      
+ 273   1        COUNT++;
+ 274   1      
+ 275   1        /* check if there is a alert that failed to send  */
+ 276   1        //    if (oldval>0)
+ 277   1        //      {
+ 278   1        //        //check red  high 2 bytes
+ 279   1        //        uint16 tmp=(oldval&0xffff0000)>>16;
+ 280   1        //        if (tmp>1)
+ 281   1        //          {
+ 282   1        //            tmp-=1;
+ 283   1        //            oldval&=0xffff;
+ 284   1        //            oldval|=((tmp)<<16);
+ 285   1        //          ALERTTRYAGAIN = oldval;
+ 286   1        //        }
+ 287   1        //        else if (tmp==1)
+ 288   1        //          {
+ 289   1        //            oldval&=0xffff;
+ 290   1        //            ALERTTRYAGAIN = oldval;
+ 291   1        //            SendAlert(REDALERT);
+ 292   1        //          }
+ 293   1        //
+ 294   1        //        //check yellow   low 2 bytes
+ 295   1        //        tmp=(oldval&0xffff);
+ 296   1        //        if (tmp>1)
+ 297   1        //          {
+ 298   1        //            tmp-=1;
+ 299   1        //            oldval&=0xffff0000;
+ 300   1        //            oldval|=(tmp);
+ 301   1        //            ALERTTRYAGAIN = oldval;
+ 302   1        //          }
+C51 COMPILER V9.52.0.0   DIAPER                                                            11/16/2018 11:01:04 PAGE 6   
+
+ 303   1        //        else if (tmp==1)
+ 304   1        //          {
+ 305   1        //            oldval&=0xffff0000;
+ 306   1        //            ALERTTRYAGAIN = oldval;
+ 307   1        //            SendAlert(YELALERT);
+ 308   1        //
+ 309   1        //          }
+ 310   1        //      }
+ 311   1      
+ 312   1        /* read all channels and save all the data*/
+ 313   1        // set P54 to push pull mode, set to high-z mode before sleep
+ 314   1      
+ 315   1        newEventFlag    = ReadAndProcessData(chvalues);
+ 316   1      
+ 317   1      
+ 318   1      
+ 319   1        //  //test
+ 320   1        //  if(newEventFlag != 0)
+ 321   1        //    {
+ 322   1        //      printf("0x%bx\r\n", newEventFlag);
+ 323   1        //
+ 324   1        //    }
+ 325   1        for (i = 0; i < 4; i++)
+ 326   1        {
+ 327   2          result[i]     = WalkChannel_new(&currStates, i, newEventFlag, chvalues[i]);
+ 328   2      
+ 329   2      
+ 330   2          /*
+ 331   2          //debug code
+ 332   2      #ifdef PRINTF_DEBUG
+ 333   2      
+ 334   2          if (result[i] > 0)
+ 335   2          {
+ 336   2            printf("ch=%bd ,result=0x%bx  ", i, result[i]);
+ 337   2            printf("\r\n");
+ 338   2          }
+ 339   2      
+ 340   2      #endif
+ 341   2          */
+ 342   2      
+ 343   2          //#ifndef PRINTF_DEBUG
+ 344   2          //    if (result[i] > 0)
+ 345   2          //      {
+ 346   2          //
+ 347   2          //    tx1Buffer[0]    = i;
+ 348   2          //    tx1Buffer[1]    = result[i];
+ 349   2          //    uart1SendPackage(tx1Buffer, 2);
+ 350   2          //      }
+ 351   2          //#endif
+ 352   2          //debug code end
+ 353   2        }
+ 354   1      
+ 355   1      
+ 356   1      
+ 357   1      
+ 358   1      
+ 359   1        // Calculate bit-mask for determining alert
+ 360   1        for (i = 0; i < 4; i++)
+ 361   1        {
+ 362   2      
+ 363   2          // bit-mask for Red
+ 364   2          if ((result[i] == 4) || GetBitMask_CurrentRed(i))
+C51 COMPILER V9.52.0.0   DIAPER                                                            11/16/2018 11:01:04 PAGE 7   
+
+ 365   2          {
+ 366   3            mask        |= (1 << (i + 4));  // create bitset of current cycle RED flags at position 0xF0
+ 367   3            cnt++;
+ 368   3          }
+ 369   2      
+ 370   2          // bit-mask for Orange
+ 371   2          if ((result[i] == 3) || (result[i] == 4))
+ 372   2          {
+ 373   3            mask        |= (1 << (i + 8));  // create bitset of current cycle Orange flags at position 0xF00
+ 374   3          }
+ 375   2      
+ 376   2          // bit-mask for Yellow
+ 377   2          if (result[i] == 1)
+ 378   2          {
+ 379   3            mask        |= (1 << (i));    //create bitset of current cycle yellow flags at position 0xF
+ 380   3          }
+ 381   2        }
+ 382   1      
+ 383   1      
+ 384   1        // In current cycle, it is possible to have multiple triggered. We should consider this issue !!
+ 385   1        // Previous old version did not handle multiple triggered, only send ONE alert in current cycle.
+ 386   1        // Get mask for each trigger
+ 387   1        if ((mask & 0xF))
+ 388   1        {
+ 389   2          triggered_Yellow  = true;
+ 390   2          triggered_Yellow_Mask = (mask & 0xF);   // should send YELLOW alert whenever triggered in current cycle
+ 391   2        }
+ 392   1      
+ 393   1        if ((mask & 0xF00))
+ 394   1        {
+ 395   2          triggered_Orange  = true;
+ 396   2          triggered_Orange_Mask = (mask & 0xF00) >> 8; // should check preserved to determine if send ORANGE in cu
+             -rrent cycle
+ 397   2      
+ 398   2          // Check preserved ORANGE triggered channels last time
+ 399   2          if (GetBitMask_Preserved_Orange(triggered_Orange_Mask))
+ 400   2          {
+ 401   3            triggered_Orange  = false;      // Don't send ORANGE in this cycle
+ 402   3          }
+ 403   2        }
+ 404   1      
+ 405   1        if ((mask & 0xF0) && (cnt == 2))
+ 406   1        {
+ 407   2          triggered_Red   = true;
+ 408   2          triggered_Red_Mask  = (mask & 0xF0) >> 4; // should check preserved to determine if send RED in current c
+             -ycle
+ 409   2      
+ 410   2          // Check preserved RED triggered channnels last time
+ 411   2          if (GetBitMask_Preserved_Red(triggered_Red_Mask))
+ 412   2          {
+ 413   3            triggered_Red   = false;      // Don't send RED in this cycle
+ 414   3          }
+ 415   2        }
+ 416   1      
+ 417   1        if ((mask & 0xF0) && (cnt >= 3))
+ 418   1        {
+ 419   2          triggered_FlashRed  = true;
+ 420   2          triggered_FlashRed_Mask = (mask & 0xF0) >> 4; // should check preserved to determine if send FLASHRED in
+             - current cycle
+ 421   2      
+ 422   2          // Check preserved FLASHRED triggered channels last time
+ 423   2          if (GetBitMask_Preserved_FlashRed(triggered_FlashRed_Mask))
+C51 COMPILER V9.52.0.0   DIAPER                                                            11/16/2018 11:01:04 PAGE 8   
+
+ 424   2          {
+ 425   3            triggered_FlashRed  = false;      // Don't send FLASHRED in this cycle
+ 426   3          }
+ 427   2        }
+ 428   1      
+ 429   1      
+ 430   1        // After checking preserved, Re-build a new mask combined
+ 431   1        mask        = 0;
+ 432   1      
+ 433   1        if (triggered_Yellow)
+ 434   1        {
+ 435   2          ResetBitMask_Yellow_Triggered(triggered_Yellow_Mask); // Yellow triggered, reset bit-mask
+ 436   2          mask        |= triggered_Yellow_Mask;
+ 437   2      
+ 438   2        }
+ 439   1      
+ 440   1        if (triggered_Orange)
+ 441   1        {
+ 442   2          SetBitMask_Preserved_Orange(triggered_Orange_Mask); // Preserved to prevent sending ORANGE repeatly
+ 443   2          mask        |= (triggered_Orange_Mask << 8);
+ 444   2      
+ 445   2        }
+ 446   1      
+ 447   1        if (triggered_Red)
+ 448   1        {
+ 449   2          SetBitMask_Preserved_Red(triggered_Red_Mask); // Preserved to prevent sending RED repeatly
+ 450   2          mask        |= (triggered_Red_Mask << 4);
+ 451   2      
+ 452   2        }
+ 453   1      
+ 454   1        if (triggered_FlashRed)
+ 455   1        {
+ 456   2          SetBitMask_Preserved_FlashRed(triggered_FlashRed_Mask); // Preserved to prevent sending FlashRed repeatl
+             -y
+ 457   2          mask        |= (triggered_FlashRed_Mask << 4);
+ 458   2      
+ 459   2        }
+ 460   1      
+ 461   1      
+ 462   1        // In old version, SendAlert() function which can send only ONE alert in curernt cycle.
+ 463   1        // The new version, we use a new parameter MULTI_ALERT to identify multiple triggered.
+ 464   1        if (mask)
+ 465   1        {
+ 466   2          TRIGERCHS     = mask;
+ 467   2      
+ 468   2          /*
+ 469   2      #ifndef PRINTF_DEBUG
+ 470   2          
+ 471   2          uart1SendCommand(UART_COMMAND_ALERT, UART_ALERT_PACK_LENGTH);
+ 472   2          tx1Buffer[0]    = (mask >> 8);
+ 473   2          tx1Buffer[1]    = (mask);
+ 474   2          batteryVoltage    = ADC_GetResult(2);
+ 475   2          tx1Buffer[2]    = batteryVoltage >> 8;
+ 476   2          tx1Buffer[3]    = batteryVoltage;
+ 477   2      
+ 478   2          uart1SendPackage(tx1Buffer, UART_ALERT_PACK_LENGTH);
+ 479   2              
+ 480   2      #endif
+ 481   2          */
+ 482   2          
+ 483   2            return mask;
+ 484   2        }
+C51 COMPILER V9.52.0.0   DIAPER                                                            11/16/2018 11:01:04 PAGE 9   
+
+ 485   1        
+ 486   1        return 0;
+ 487   1      }
+ 488          
+ 489          
+ 490          uint8 WalkChannel_new(CHSTATES * currStates, uint8 i, uint8 newEventFlag, uint16 chvalue)
+ 491          {
+ 492   1        uint32      smState;
+ 493   1        uint32      diffFlag;
+ 494   1        uint32      averFlag;
+ 495   1        uint8     chsSet;
+ 496   1        uint32      oldval;
+ 497   1        uint32      currCount;
+ 498   1        float     Signal_Drop;
+ 499   1        float     Threshold_Orange;
+ 500   1        float     Threshold_Red;
+ 501   1        f2i       maxdiff;
+ 502   1        f2i       curdiff;
+ 503   1        f2i       maxaver;
+ 504   1        f2i       max, curr;
+ 505   1        f2i       newvalue;
+ 506   1      
+ 507   1      
+ 508   1        smState       = GetChannelState(currStates->STATES[i]);
+ 509   1      
+ 510   1        diffFlag      = GetDiffFlag(currStates->STATES[i]);
+ 511   1      
+ 512   1        //inc diff counting
+ 513   1        if (diffFlag)
+ 514   1        {
+ 515   2          currStates->STATES[i].countDiff++;
+ 516   2        }
+ 517   1        else 
+ 518   1        {
+ 519   2          currStates->STATES[i].countDiff = 0;
+ 520   2        }
+ 521   1      
+ 522   1      
+ 523   1        averFlag      = GetAverFlag(currStates->STATES[i]);
+ 524   1      
+ 525   1        //inc aver counting
+ 526   1        if (averFlag)
+ 527   1        {
+ 528   2          currStates->STATES[i].countaver++;
+ 529   2        }
+ 530   1        else 
+ 531   1        {
+ 532   2          currStates->STATES[i].countaver = 0;
+ 533   2        }
+ 534   1      
+ 535   1      
+ 536   1        chsSet        = newEventFlag & (1 << i);  // to identify yellow
+ 537   1      
+ 538   1        switch (smState)
+ 539   1        {
+ 540   2          case 0:
+ 541   2            if ((chsSet > 0) && (!diffFlag))
+ 542   2            {
+ 543   3      
+ 544   3              //currStates->STATES[i].peak=ReadSingleCh(CHS[i])&0xffff;
+ 545   3              currStates->STATES[i].peak = chvalue;
+ 546   3      
+C51 COMPILER V9.52.0.0   DIAPER                                                            11/16/2018 11:01:04 PAGE 10  
+
+ 547   3      
+ 548   3              //start counting
+ 549   3              SetDiffFlag(& (currStates->STATES[i]));
+ 550   3              SetAverFlag(& (currStates->STATES[i]));
+ 551   3      
+ 552   3      
+ 553   3              //for (int i=0; i<4; i++)
+ 554   3              MAXDIFF[i]      = 0;
+ 555   3      
+ 556   3              /*
+ 557   3              uint32_t result=ReadRTCMem(ADDR_COUNTAVER);
+ 558   3              if( (result<STANDARD2 )&&(result>(STANDARD2-4)))
+ 559   3                WriteRTCMem(ADDR_COUNTAVER,(result-(STANDARD1+2)));
+ 560   3              */
+ 561   3              //next state 1
+ 562   3              SetChannelState(& (currStates->STATES[i]), 1);
+ 563   3      
+ 564   3            }
+ 565   2            else 
+ 566   2            {
+ 567   3              // DEBUG_LOG("state=0, but no entry to check yellow");
+ 568   3            }
+ 569   2      
+ 570   2            break;
+ 571   2      
+ 572   2          case 1:
+ 573   2          case 2:
+ 574   2          case 3:
+ 575   2            currStates->STATES[i].peak += chvalue;
+ 576   2            SetChannelState(& (currStates->STATES[i]), ++smState);
+ 577   2            break;
+ 578   2      
+ 579   2          // checking point@ 16 secs
+ 580   2          case 4:
+ 581   2            //max diff
+ 582   2            maxdiff.i = MAXDIFF[i];
+ 583   2      
+ 584   2            //current diff
+ 585   2            curdiff.i = DIFF[i];
+ 586   2      
+ 587   2            //max average
+ 588   2            maxaver.i = MAXAVER[i];
+ 589   2      
+ 590   2            if ((curdiff.f > (maxdiff.f / 8)) &&
+ 591   2               ((currStates->STATES[i].peak) / (STANDARD1 * 1.0)) > (maxaver.f * 7 / 8.0))
+ 592   2            {
+ 593   3              // this is a real event
+ 594   3              if (!isInSession(currStates->STATES[i]))
+ 595   3              {
+ 596   4                SetInSessionFlag(& (currStates->STATES[i]));
+ 597   4                SetChannelState(& (currStates->STATES[i]), ++smState);
+ 598   4              }
+ 599   3              else 
+ 600   3              {
+ 601   4                SetChannelState(& (currStates->STATES[i]), ++smState);
+ 602   4                currStates->STATES[i].countaver = 5;
+ 603   4              }
+ 604   3      
+ 605   3      
+ 606   3      
+ 607   3              newvalue.f      = (currStates->STATES[i].peak) / (STANDARD1 * 1.0);
+ 608   3              MOVINGAVERAGE[i]  = newvalue.i;
+C51 COMPILER V9.52.0.0   DIAPER                                                            11/16/2018 11:01:04 PAGE 11  
+
+ 609   3              MAXAVER[i]      = newvalue.i;
+ 610   3      
+ 611   3              oldval        = BILLBOARD;
+ 612   3      
+ 613   3              //uint32_t currCount=ReadRTCMem(ADDR_COUNT);   //TODO change to timestamp
+ 614   3              currCount     = LIFESPAN;
+ 615   3      
+ 616   3              //debug code
+ 617   3              //#ifdef PRINTF_DEBUG
+ 618   3              //        printf("%ld, %ld\r\n", oldval, currCount);
+ 619   3              //#endif
+ 620   3              //debug code end
+ 621   3              if (currCount > (oldval + 32))
+ 622   3              {
+ 623   4                BILLBOARD     = currCount;
+ 624   4      
+ 625   4      
+ 626   4                //reset peak value
+ 627   4                currStates->STATES[i].peak = 0;
+ 628   4      
+ 629   4                //CHSSTATE = currStates;
+ 630   4                return 1;
+ 631   4              }
+ 632   3      
+ 633   3      
+ 634   3      
+ 635   3            }
+ 636   2            else //false alarm
+ 637   2            {
+ 638   3              if (!isInSession(currStates->STATES[i])) // if this was the first event attempt
+ 639   3              {
+ 640   4                ResetAverFlag(& (currStates->STATES[i]));
+ 641   4                ResetDiffFlag(& (currStates->STATES[i]));
+ 642   4                ResetInSessionFlag(& (currStates->STATES[i]));
+ 643   4                currStates->STATES[i].countDiff = 0;
+ 644   4                currStates->STATES[i].countaver = 0;
+ 645   4      
+ 646   4                SetChannelState(& (currStates->STATES[i]), 0);
+ 647   4      
+ 648   4              }
+ 649   3              else //if this is a false event on the tail of a previous true event, keep previous event counters/sta
+             -tes untouched
+ 650   3              {
+ 651   4                ResetDiffFlag(& (currStates->STATES[i])); //
+ 652   4                SetChannelState(& (currStates->STATES[i]), 6);
+ 653   4              }
+ 654   3      
+ 655   3            }
+ 656   2      
+ 657   2            //reset peak value
+ 658   2            currStates->STATES[i].peak = 0;
+ 659   2            break;
+ 660   2      
+ 661   2          case 5:
+ 662   2            if (currStates->STATES[i].countDiff == STANDARD3)
+ 663   2            {
+ 664   3              ResetDiffFlag(& (currStates->STATES[i]));
+ 665   3              SetChannelState(& (currStates->STATES[i]), 6);
+ 666   3            }
+ 667   2            else 
+ 668   2              //16-64
+ 669   2              SetChannelState(& (currStates->STATES[i]), 5);
+C51 COMPILER V9.52.0.0   DIAPER                                                            11/16/2018 11:01:04 PAGE 12  
+
+ 670   2      
+ 671   2            break;
+ 672   2      
+ 673   2          case 6: //yellow 1 min
+ 674   2            // After 1 minute blanking of new yellow, counts every 15 min before checking for ORANGE/RED/FLashing R
+             -ED
+ 675   2            //check again for yellow and if potential event, start again from first state.
+ 676   2            if ((chsSet > 0) && (!diffFlag))
+ 677   2            {
+ 678   3              //start counting
+ 679   3              SetDiffFlag(& (currStates->STATES[i]));
+ 680   3      
+ 681   3              //for (int i=0; i<4; i++)
+ 682   3              MAXDIFF[i]      = 0;
+ 683   3      
+ 684   3              // SHAOBO Sep26, 2017
+ 685   3              // need to read first value of a potential event
+ 686   3              currStates->STATES[i].peak = chvalue;
+ 687   3      
+ 688   3              //next state 1
+ 689   3              SetChannelState(& (currStates->STATES[i]), 1);
+ 690   3      
+ 691   3            }
+ 692   2      
+ 693   2            // check point @ 15minutes (coutaver == 225)
+ 694   2            else if ((currStates->STATES[i].countaver) % STANDARD2 == 0) // else  if ((currStates->STATES[i].countav
+             -er) >= STANDARD2)
+ 695   2            {
+ 696   3              SetChannelState(& (currStates->STATES[i]), 7);
+ 697   3            }
+ 698   2            else 
+ 699   2            {
+ 700   3              // We should check Yellow also
+ 701   3              SetChannelState(& (currStates->STATES[i]), 6);
+ 702   3            }
+ 703   2      
+ 704   2            break;
+ 705   2      
+ 706   2          case 7: // 15min checking point
+ 707   2            {
+ 708   3      
+ 709   3              max.i       = MAXAVER[i];
+ 710   3              curr.i        = MOVINGAVERAGE[i];
+ 711   3      
+ 712   3              //adjust threshold in case signal is going up
+ 713   3              if ((curr.f - prevMovAvg[i].f) / max.f > PERCENT_RISE_THRESHOLD)
+ 714   3              {
+ 715   4      
+ 716   4                float     rollback_count =
+ 717   4                   (curr.f - prevMovAvg[i].f) / max.f * (STANDARD2 / PERCENTDROP_FLASHRED);
+ 718   4      
+ 719   4                if (rollback_count > 0)
+ 720   4                {
+ 721   5                  int       temp = currStates->STATES[i].countaver - rollback_count;
+ 722   5      
+ 723   5                  if (temp > 0)
+ 724   5                  {
+ 725   6                    currStates->STATES[i].countaver = currStates->STATES[i].countaver - rollback_count;
+ 726   6                  }
+ 727   5                  else 
+ 728   5                  {
+ 729   6                    currStates->STATES[i].countaver = 1;
+C51 COMPILER V9.52.0.0   DIAPER                                                            11/16/2018 11:01:04 PAGE 13  
+
+ 730   6                  }
+ 731   5                }
+ 732   4              }
+ 733   3      
+ 734   3              if (currStates->STATES[i].countaver >= STANDARD2)
+ 735   3              {
+ 736   4      
+ 737   4      
+ 738   4                //uint32_t shortlist=ReadRTCMem(ADDR_TRIGERCHS_AVER);
+ 739   4                // Signal_Drop
+ 740   4                //float leftval=max.f-curr.f;
+ 741   4                // Threshold
+ 742   4                //float rightval=max.f*PERCENTDROP*(currStates->STATES[i].countaver-1)/STANDARD2 ;
+ 743   4                Signal_Drop     = max.f - curr.f;
+ 744   4      
+ 745   4                Threshold_Orange  =
+ 746   4                   ((float) (max.f * PERCENTDROP_ORANGE * (currStates->STATES[i].countaver - 1))) / STANDARD2;
+ 747   4      
+ 748   4                Threshold_Red   =
+ 749   4                   ((float) (max.f * PERCENTDROP_FLASHRED * (currStates->STATES[i].countaver - 1))) / STANDARD2;
+ 750   4      
+ 751   4      
+ 752   4                //if ((max.f-curr.f)<=(max.f*(currStates->STATES[i].countaver)*(DEEPSLEEPTIME/1000000)/(18000) ))
+ 753   4                //if Signal_Drop < Threshold_Orange then set Orange DFlag for channel
+ 754   4                //if Signal_Drop < Threshold_Red then set Red DFlag for channel
+ 755   4                if (Signal_Drop <= Threshold_Red)
+ 756   4                {
+ 757   5      
+ 758   5                  ResetDiffFlag(& (currStates->STATES[i]));
+ 759   5      
+ 760   5                  //SetChannelState(&(currStates->STATES[i]),10);
+ 761   5                  SetChannelState(& (currStates->STATES[i]), 6);
+ 762   5      
+ 763   5                  // mask the current channel RED state, this bit-mask will be checked later to judge sending Red/Flas
+             -hRed
+ 764   5                  SetBitMask_CurrentRed(i, true);
+ 765   5      
+ 766   5      
+ 767   5                  //          CHSSTATE=currStates;
+ 768   5                  return 4; // Flashing Red;
+ 769   5                }
+ 770   4      
+ 771   4                else if (Signal_Drop <= Threshold_Orange)
+ 772   4                {
+ 773   5      
+ 774   5      
+ 775   5                  ResetDiffFlag(& (currStates->STATES[i]));
+ 776   5      
+ 777   5                  //SetChannelState(&(currStates->STATES[i]), 9);
+ 778   5                  SetChannelState(& (currStates->STATES[i]), 6);
+ 779   5      
+ 780   5                  //          CHSSTATE=currStates;
+ 781   5                  // return 2;  // old RED
+ 782   5                  return 3; // new ORANGE
+ 783   5      
+ 784   5                }
+ 785   4      
+ 786   4                else 
+ 787   4                {
+ 788   5      
+ 789   5                  //DEBUG_LOG("No Red alert!"," ");
+ 790   5                  //DEBUG_LOG("Not qualified with ORANGE");
+C51 COMPILER V9.52.0.0   DIAPER                                                            11/16/2018 11:01:04 PAGE 14  
+
+ 791   5                  SetChannelState(& (currStates->STATES[i]), 6);
+ 792   5      
+ 793   5                }
+ 794   4      
+ 795   4              }
+ 796   3      
+ 797   3            }
+ 798   2            break;
+ 799   2      
+ 800   2          default:
+ 801   2            ResetAverFlag(& (currStates->STATES[i]));
+ 802   2            ResetDiffFlag(& (currStates->STATES[i]));
+ 803   2            ResetInSessionFlag(& (currStates->STATES[i]));
+ 804   2            SetChannelState(& (currStates->STATES[i]), 0);
+ 805   2            currStates->STATES[i].countDiff = 0;
+ 806   2            currStates->STATES[i].countaver = 0;
+ 807   2            break;
+ 808   2        }
+ 809   1      
+ 810   1        // update data structure
+ 811   1        //    CHSSTATE=currStates;
+ 812   1        return 0;
+ 813   1      
+ 814   1      }
+ 815          
+ 816          
+ 817          
+ 818          ///*************************************************
+ 819          //Function: UpdateLifeSpan
+ 820          //Description: update current time in terms of seconds
+ 821          //Input:
+ 822          //    newdelta: the time step that will be added in terms of rtc time ticks
+ 823          //    deepsleep:
+ 824          //Output:NONE
+ 825          //Return: return current time in terms of seconds
+ 826          //*************************************************/
+ 827          //uint32 UpdateLifeSpan(uint32 newdelta, uint32 sleep_us)
+ 828          //{
+ 829          //  uint32      oldus;
+ 830          //  uint32      newinterval, result, oldsec, temp;
+ 831          //  uint32      deltaS;
+ 832          //
+ 833          //
+ 834          //  oldus       = LIFESPAN_US;
+ 835          //
+ 836          //  //For 12T mode, every tick = 0.5us
+ 837          //  // change round() to floor()
+ 838          //  newinterval     = oldus + floor((newdelta * 0.5) +sleep_us); //us
+ 839          //
+ 840          //  oldsec        = LIFESPAN;
+ 841          //
+ 842          //  if (newinterval > 1000000)
+ 843          //    {
+ 844          //    deltaS        = newinterval / 1000000;
+ 845          //
+ 846          //    result        = oldsec + deltaS;
+ 847          //
+ 848          //    LIFESPAN      = result;
+ 849          //
+ 850          //    temp        = newinterval % 1000000;
+ 851          //
+ 852          //    LIFESPAN_US     = temp;
+C51 COMPILER V9.52.0.0   DIAPER                                                            11/16/2018 11:01:04 PAGE 15  
+
+ 853          //    return result;
+ 854          //
+ 855          //    }
+ 856          //  else 
+ 857          //    {
+ 858          //    LIFESPAN      = newinterval;
+ 859          //    return oldsec;
+ 860          //    }
+ 861          //
+ 862          //
+ 863          //}
+ 864          void SetBitMask_CurrentRed(uint8 i, uint8 setVal)
+ 865          {
+ 866   1        uint32      global;
+ 867   1        uint32      mask;
+ 868   1      
+ 869   1        global        = TRIGERCHS_GLOBAL;
+ 870   1        mask        = 1 << (i + 0);
+ 871   1      
+ 872   1        if (setVal)
+ 873   1        {
+ 874   2          global        |= mask;
+ 875   2        }
+ 876   1        else 
+ 877   1        {
+ 878   2          global        &= (~mask);
+ 879   2        }
+ 880   1      
+ 881   1        TRIGERCHS_GLOBAL  = global;
+ 882   1      }
+ 883          
+ 884          
+ 885          
+ 886          uint8 GetBitMask_CurrentRed(uint8 i)
+ 887          {
+ 888   1        uint32      mask;
+ 889   1      
+ 890   1        mask        = 1 << (i + 0);
+ 891   1        return ((TRIGERCHS_GLOBAL & mask) == mask) ? true: false;
+ 892   1      }
+ 893          
+ 894          
+ 895          uint8 GetBitMask_Preserved_Orange(uint8 mask)
+ 896          {
+ 897   1        uint32      check;
+ 898   1      
+ 899   1        check       = (mask << 4);
+ 900   1        return ((TRIGERCHS_GLOBAL & check) == check);
+ 901   1      }
+ 902          
+ 903          
+ 904          uint8 GetBitMask_Preserved_Red(uint8 mask)
+ 905          {
+ 906   1        uint32      check;
+ 907   1      
+ 908   1        check       = (mask << 8);
+ 909   1        return ((TRIGERCHS_GLOBAL & check) == check);
+ 910   1      }
+ 911          
+ 912          
+ 913          uint8 GetBitMask_Preserved_FlashRed(uint8 mask)
+ 914          {
+C51 COMPILER V9.52.0.0   DIAPER                                                            11/16/2018 11:01:04 PAGE 16  
+
+ 915   1        uint32      check;
+ 916   1      
+ 917   1        check       = (mask << 12);
+ 918   1        return ((TRIGERCHS_GLOBAL & check) == check);
+ 919   1      }
+ 920          
+ 921          
+ 922          void ResetBitMask_Yellow_Triggered(uint8 triggered_Yellow_Mask)
+ 923          {
+ 924   1        if (triggered_Yellow_Mask & 0x1)
+ 925   1        {
+ 926   2          ResetBitMask_Global(0);
+ 927   2        }
+ 928   1      
+ 929   1        if (triggered_Yellow_Mask & 0x2)
+ 930   1        {
+ 931   2          ResetBitMask_Global(1);
+ 932   2        }
+ 933   1      
+ 934   1        if (triggered_Yellow_Mask & 0x4)
+ 935   1        {
+ 936   2          ResetBitMask_Global(2);
+ 937   2        }
+ 938   1      
+ 939   1        if (triggered_Yellow_Mask & 0x8)
+ 940   1        {
+ 941   2          ResetBitMask_Global(3);
+ 942   2        }
+ 943   1      }
+ 944          
+ 945          
+ 946          void ResetBitMask_Global(uint8 i)
+ 947          {
+ 948   1        uint32      mask;
+ 949   1      
+ 950   1        mask        = 0;
+ 951   1      
+ 952   1        mask        = 1 << (i + 0);       // Reset BitMask_CurrentRed
+ 953   1        TRIGERCHS_GLOBAL  &= (~mask);
+ 954   1      
+ 955   1        mask        = 1 << (i + 4);       // Reset BitMask_Preserved_Orange
+ 956   1        TRIGERCHS_GLOBAL  &= (~mask);
+ 957   1      
+ 958   1        mask        = 1 << (i + 8);       // Reset BitMask_Preserved_Red
+ 959   1        TRIGERCHS_GLOBAL  &= (~mask);
+ 960   1      
+ 961   1        mask        = 1 << (i + 12);      // Reset BitMask_Preserved_FlashRed
+ 962   1        TRIGERCHS_GLOBAL  &= (~mask);
+ 963   1      
+ 964   1      }
+ 965          
+ 966          
+ 967          void SetBitMask_Preserved_Orange(uint8 mask)
+ 968          {
+ 969   1        TRIGERCHS_GLOBAL  |= (mask << 4);
+ 970   1      }
+ 971          
+ 972          
+ 973          void SetBitMask_Preserved_Red(uint8 mask)
+ 974          {
+ 975   1        TRIGERCHS_GLOBAL  |= (mask << 8);
+ 976   1      }
+C51 COMPILER V9.52.0.0   DIAPER                                                            11/16/2018 11:01:04 PAGE 17  
+
+ 977          
+ 978          
+ 979          void SetBitMask_Preserved_FlashRed(uint8 mask)
+ 980          {
+ 981   1        TRIGERCHS_GLOBAL  |= (mask << 12);
+ 982   1      }
+ 983          
+ 984          
+ 985          uint8 GetChannelState(CHSTATE currStates)
+ 986          {
+ 987   1        uint8     oldval;
+ 988   1      
+ 989   1        oldval        = currStates.flagstate;
+ 990   1        oldval        &= STATE_MASK;
+ 991   1        return oldval;
+ 992   1      
+ 993   1      }
+ 994          
+ 995          
+ 996          uint8 GetDiffFlag(CHSTATE currStates)
+ 997          {
+ 998   1        uint8     tmp;
+ 999   1      
+1000   1        tmp         = currStates.flagstate;
+1001   1        tmp         &= (~DIFFFLAG_MASK);
+1002   1        return (tmp > 0) ? 1: 0;
+1003   1      
+1004   1      }
+1005          
+1006          
+1007          uint8 GetAverFlag(CHSTATE currStates)
+1008          {
+1009   1        uint8     tmp;
+1010   1      
+1011   1        tmp         = currStates.flagstate;
+1012   1        tmp         &= (~AVERFLAG_MASK);
+1013   1      
+1014   1        return tmp > 0 ? 1: 0;
+1015   1      }
+1016          
+1017          
+1018          void SetDiffFlag(CHSTATE * currStates)
+1019          {
+1020   1        uint8     oldval;
+1021   1      
+1022   1        oldval        = currStates->flagstate;
+1023   1        oldval        |= (~DIFFFLAG_MASK);
+1024   1        currStates->flagstate = oldval;
+1025   1      }
+1026          
+1027          
+1028          void SetAverFlag(CHSTATE * currStates)
+1029          {
+1030   1        uint8     tmp;
+1031   1      
+1032   1        tmp         = currStates->flagstate;
+1033   1        tmp         |= (~AVERFLAG_MASK);
+1034   1        currStates->flagstate = tmp;
+1035   1      
+1036   1      }
+1037          
+1038          
+C51 COMPILER V9.52.0.0   DIAPER                                                            11/16/2018 11:01:04 PAGE 18  
+
+1039          void SetChannelState(CHSTATE * currStates, uint8 newstate)
+1040          {
+1041   1        uint8     oldval;
+1042   1      
+1043   1        oldval        = currStates->flagstate;
+1044   1        oldval        &= (~STATE_MASK);
+1045   1        oldval        |= (newstate & (STATE_MASK));
+1046   1        currStates->flagstate = oldval;
+1047   1      }
+1048          
+1049          
+1050          uint8 isInSession(CHSTATE currStates)
+1051          {
+1052   1        uint8     oldval;
+1053   1      
+1054   1        oldval        = currStates.flagstate;
+1055   1        oldval        &= (~SESSION_MASK);
+1056   1        return (oldval > 0) ? 1: 0;
+1057   1      
+1058   1      }
+1059          
+1060          
+1061          void SetInSessionFlag(CHSTATE * currStates)
+1062          {
+1063   1        uint8     oldval;
+1064   1      
+1065   1        oldval        = currStates->flagstate;
+1066   1        oldval        |= (~SESSION_MASK);
+1067   1        currStates->flagstate = oldval;
+1068   1      
+1069   1      }
+1070          
+1071          
+1072          void ResetAverFlag(CHSTATE * currStates)
+1073          {
+1074   1        uint8     tmp;
+1075   1      
+1076   1        tmp         = currStates->flagstate;
+1077   1        tmp         &= AVERFLAG_MASK;
+1078   1        currStates->flagstate = tmp;
+1079   1      
+1080   1      }
+1081          
+1082          
+1083          void ResetDiffFlag(CHSTATE * currStates)
+1084          {
+1085   1        uint8     oldval;
+1086   1      
+1087   1        oldval        = currStates->flagstate;
+1088   1        oldval        &= DIFFFLAG_MASK;
+1089   1        currStates->flagstate = oldval;
+1090   1      }
+1091          
+1092          
+1093          void ResetInSessionFlag(CHSTATE * currStates)
+1094          {
+1095   1        uint8     oldval;
+1096   1      
+1097   1        oldval        = currStates->flagstate;
+1098   1        oldval        &= (SESSION_MASK);
+1099   1        currStates->flagstate = oldval;
+1100   1      
+C51 COMPILER V9.52.0.0   DIAPER                                                            11/16/2018 11:01:04 PAGE 19  
+
+1101   1      }
+1102          
+1103          
+1104          /*************************************************
+1105          Function: ADC_Init
+1106          Description: ADC initialize
+1107          Input: NONE
+1108          Output:NONE
+1109          Return:NONE
+1110          
+1111          *************************************************/
+1112          void ADC_Init(void)
+1113          {
+1114   1        //Initialize P14, P15, P16, P17 as input
+1115   1        P1M1        |= ((1 << 2) | (1 << 3) |(1 << 4) | (1 << 5) | (1 << 6) | (1 << 7));
+1116   1      
+1117   1        P1M0        &= ~((1 << 2) | (1 << 3) |(1 << 4) | (1 << 5) | (1 << 6) | (1 << 7));
+1118   1      
+1119   1      
+1120   1        P1ASF       |= (P1ASF_2 | P1ASF_3 |P1ASF_4 | P1ASF_5 | P1ASF_6 | P1ASF_7); //set P14, P15, P16, P17 as ADC c
+             -hannel
+1121   1      
+1122   1        ADC_RES       = 0;            //clear ADC data reg
+1123   1      
+1124   1        //enable ADC power, set ADC speed
+1125   1        ADC_CONTR     = ADC_POWER | ADC_SPEEDLL;
+1126   1        delayMs(2);                   //delay 2ms
+1127   1      }
+1128          
+1129          
+1130          /*************************************************
+1131          Function: ADC_GetResult
+1132          Description: get ADC result by inquiry mode
+1133          Input: uint8 ch: ADC ch
+1134          Output:none
+1135          Return:uint16: the 10 bit result
+1136          
+1137          *************************************************/
+1138          uint16 ADC_GetResult(uint8 ch)
+1139          {
+1140   1        uint16      ADC_Value;
+1141   1      
+1142   1        //ADC_CONTR     = ADC_POWER | ADC_SPEEDL | ch | ADC_START; //Æô¶¯ADC
+1143   1        ADC_CONTR     = ADC_POWER | ADC_SPEEDLL | ch | ADC_START; //Æô¶¯ADC
+1144   1        _nop_();                    //delay
+1145   1        _nop_();
+1146   1        _nop_();
+1147   1        _nop_();
+1148   1        _nop_();
+1149   1        _nop_();
+1150   1      
+1151   1        while (! (ADC_CONTR & ADC_FLAG))
+1152   1          ; //wait for ADC finish
+1153   1      
+1154   1        ADC_CONTR     &= ~ADC_FLAG;       //clear finish flag
+1155   1        ADC_Value     = ADC_RES;          //read ADC high 8bit
+1156   1        ADC_Value     = (ADC_Value << 2) | ADC_RESL; //read ADC low 2bit, emerge the result
+1157   1        return ADC_Value;
+1158   1      }
+1159          
+1160          
+1161          
+C51 COMPILER V9.52.0.0   DIAPER                                                            11/16/2018 11:01:04 PAGE 20  
+
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =   6289    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =    175     197
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

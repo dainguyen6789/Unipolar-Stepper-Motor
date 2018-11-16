@@ -1,0 +1,72 @@
+C51 COMPILER V9.52.0.0   MAIN                                                              11/16/2018 11:01:05 PAGE 1   
+
+
+C51 COMPILER V9.52.0.0, COMPILATION OF MODULE MAIN
+OBJECT MODULE PLACED IN .\Obj\main.obj
+COMPILER INVOKED BY: C:\Keil_v5\C51\BIN\C51.EXE Source\main.c LARGE REGFILE(.\Obj\Stepper.ORC) BROWSE INCDIR(.\Header) D
+                    -EBUG OBJECTEXTEND PRINT(.\Lis\main.lst) TABS(2) OBJECT(.\Obj\main.obj)
+
+line level    source
+
+   1          #include <STC15F2K60S2.H>
+   2          /* BLINKY.C - LED Flasher for the Keil MCBx51 Evaluation Board with 80C51 device*/
+   3                            
+   4          #include <REG51F.H>
+*** WARNING C318 IN LINE 4 OF Source\main.c: can't open file 'REG51F.H'
+   5          
+   6          // When you have enabled the option Stop Program Execution with Serial
+   7          // Interrupt, the Monitor-51 uses the serial interrupt of the UART.
+   8          // It is therefore required to reserve the memory locations for the interrupt
+   9          // vector.  You can do this by adding one of the following code lines:
+  10          
+  11          // char code reserve [3] _at_ 0x23;   // when using on-chip UART for communication
+  12          // char code reserve [3] _at_  0x3;   // when using off-chip UART for communication
+  13          
+  14          void wait (void)  {                   /* wait function */
+  15   1        ;                                   /* only to delay for LED flashes */
+  16   1      }
+  17          
+  18          void main (void)  {
+  19   1        unsigned int i, cycle;                     /* Delay var */
+  20   1        unsigned char j;                    /* LED var */
+  21   1        P3M1=0x00;
+  22   1        P3M0=0xFF;
+  23   1        // One revolution CCW using full step mode
+  24   1        while(1)
+  25   1        {
+  26   2            P3=0x13;
+  27   2            for (i = 0; i < 4000; i++)  {  /* Delay for 10000 Counts */
+  28   3              wait ();                       /* call wait function */
+  29   3            }
+  30   2            P3=0x26;
+  31   2            for (i = 0; i < 4000; i++)  {  /* Delay for 10000 Counts */
+  32   3              wait ();                       /* call wait function */
+  33   3            }
+  34   2            P3=0x4C;
+  35   2            for (i = 0; i < 4000; i++)  {  /* Delay for 10000 Counts */
+  36   3              wait ();                       /* call wait function */
+  37   3            }
+  38   2            P3=0x89;
+  39   2            for (i = 0; i < 4000; i++)  {  /* Delay for 10000 Counts */
+  40   3              wait ();                       /* call wait function */
+  41   3            }
+  42   2        }
+  43   1      }
+*** WARNING C280 IN LINE 19 OF Source\main.c: 'cycle': unreferenced local variable
+*** WARNING C280 IN LINE 20 OF Source\main.c: 'j': unreferenced local variable
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =     92    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----       3
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+C51 COMPILER V9.52.0.0   MAIN                                                              11/16/2018 11:01:05 PAGE 2   
+
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  3 WARNING(S),  0 ERROR(S)

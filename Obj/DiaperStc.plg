@@ -1,0 +1,378 @@
+<html>
+<body>
+<pre>
+<h1>µVision Build Log</h1>
+<h2>Project:</h2>
+C:\Users\dwadmin\Desktop\Ref_Diaper\1_Stepper_Motor\Stepper.uvproj
+Project File Date:  04/10/2018
+
+<h2>Output:</h2>
+Rebuild target 'DiaperStc'
+assembling STARTUP.A51...
+compiling diaper.c...
+compiling main.c...
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?PCA2_INIT?MAIN
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?BUZZERBEEPING?MAIN
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?_UART1SENDCHAR?MAIN
+Program Size: data=10.0 xdata=1367 code=11089
+creating hex file from ".\Obj\DiaperStc"...
+".\Obj\DiaperStc" - 0 Error(s), 3 Warning(s).
+Build target 'DiaperStc'
+compiling main.c...
+Source\main.c(359): error C141: syntax error near 'if'
+Source\main.c(359): error C141: syntax error near '==', expected ')'
+Source\main.c(361): error C279: 'pageWriteCount': multiple initialization
+Source\main.c(361): error C231: 'pageWriteCount': redefinition
+Source\main.c(362): error C141: syntax error near '58'
+Source\main.c(362): error C231: '_SendToEsp_ChannelData_Running': redefinition
+Source\main.c(363): error C141: syntax error near '}'
+Source\main.c(366): error C231: 'powerDownSleep': redefinition
+Source\main.c(367): error C141: syntax error near '}'
+Source\main.c(370): error C129: missing ';' before ':'
+Target not created
+Build target 'DiaperStc'
+compiling main.c...
+Source\main.c(351): error C141: syntax error near 'if'
+Source\main.c(351): error C141: syntax error near '==', expected ')'
+Source\main.c(353): error C279: 'pageWriteCount': multiple initialization
+Source\main.c(353): error C231: 'pageWriteCount': redefinition
+Source\main.c(354): error C141: syntax error near '58'
+Source\main.c(355): error C141: syntax error near '}'
+Source\main.c(358): error C231: 'powerDownSleep': redefinition
+Source\main.c(359): error C141: syntax error near '}'
+Source\main.c(362): error C129: missing ';' before ':'
+Target not created
+Build target 'DiaperStc'
+compiling main.c...
+Source\main.c(295): warning C206: 'SendToEsp_Alert_Sensor_On': missing function-prototype
+Source\main.c(316): warning C206: 'SendToEsp_Alert_Charger_On': missing function-prototype
+Source\main.c(678): error C231: 'SendToEsp_Alert_Sensor_On': redefinition
+Source\main.c(692): error C231: 'SendToEsp_Alert_Sensor_On': redefinition
+Source\main.c(695): error C231: 'SendToEsp_Alert_Charger_On': redefinition
+Source\main.c(709): error C231: 'SendToEsp_Alert_Charger_On': redefinition
+Target not created
+Build target 'DiaperStc'
+compiling main.c...
+Source\main.c(359): error C141: syntax error near 'if'
+Source\main.c(359): error C141: syntax error near '==', expected ')'
+Source\main.c(361): error C279: 'pageWriteCount': multiple initialization
+Source\main.c(361): error C231: 'pageWriteCount': redefinition
+Source\main.c(362): error C141: syntax error near '58'
+Source\main.c(362): error C231: '_SendToEsp_ChannelData_Running': redefinition
+Source\main.c(363): error C141: syntax error near '}'
+Source\main.c(366): error C231: 'powerDownSleep': redefinition
+Source\main.c(367): error C141: syntax error near '}'
+Source\main.c(370): error C129: missing ';' before ':'
+Target not created
+Build target 'DiaperStc'
+compiling main.c...
+Source\main.c(4): warning C318: can't open file 'REG51F.H'
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?STATE3_NEW2?DIAPER
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?ADC_INIT?DIAPER
+*** WARNING L1: UNRESOLVED EXTERNAL SYMBOL
+    SYMBOL:  _IAPERASESECTOR
+    MODULE:  .\Obj\diaper.obj (DIAPER)
+*** WARNING L1: UNRESOLVED EXTERNAL SYMBOL
+    SYMBOL:  PAGEWRITECOUNT
+    MODULE:  .\Obj\diaper.obj (DIAPER)
+*** WARNING L1: UNRESOLVED EXTERNAL SYMBOL
+    SYMBOL:  _DELAYMS
+    MODULE:  .\Obj\diaper.obj (DIAPER)
+*** WARNING L1: UNRESOLVED EXTERNAL SYMBOL
+    SYMBOL:  CHREADCOUNT
+    MODULE:  .\Obj\diaper.obj (DIAPER)
+*** WARNING L1: UNRESOLVED EXTERNAL SYMBOL
+    SYMBOL:  _IAPWRITEBYTE
+    MODULE:  .\Obj\diaper.obj (DIAPER)
+*** WARNING L1: UNRESOLVED EXTERNAL SYMBOL
+    SYMBOL:  ?_IAPWRITEBYTE?BYTE
+    MODULE:  .\Obj\diaper.obj (DIAPER)
+*** WARNING L1: UNRESOLVED EXTERNAL SYMBOL
+    SYMBOL:  ONEPAGECHVALUE
+    MODULE:  .\Obj\diaper.obj (DIAPER)
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  _DELAYMS
+    MODULE:  .\Obj\diaper.obj (DIAPER)
+    ADDRESS: 124BH
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  CHREADCOUNT
+    MODULE:  .\Obj\diaper.obj (DIAPER)
+    ADDRESS: 1260H
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  ONEPAGECHVALUE
+    MODULE:  .\Obj\diaper.obj (DIAPER)
+    ADDRESS: 12CFH
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  ONEPAGECHVALUE
+    MODULE:  .\Obj\diaper.obj (DIAPER)
+    ADDRESS: 12D3H
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  ONEPAGECHVALUE
+    MODULE:  .\Obj\diaper.obj (DIAPER)
+    ADDRESS: 12EDH
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  ONEPAGECHVALUE
+    MODULE:  .\Obj\diaper.obj (DIAPER)
+    ADDRESS: 12F2H
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  ONEPAGECHVALUE
+    MODULE:  .\Obj\diaper.obj (DIAPER)
+    ADDRESS: 132AH
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  ONEPAGECHVALUE
+    MODULE:  .\Obj\diaper.obj (DIAPER)
+    ADDRESS: 132EH
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  ONEPAGECHVALUE
+    MODULE:  .\Obj\diaper.obj (DIAPER)
+    ADDRESS: 1348H
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  ONEPAGECHVALUE
+    MODULE:  .\Obj\diaper.obj (DIAPER)
+    ADDRESS: 134DH
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  ONEPAGECHVALUE
+    MODULE:  .\Obj\diaper.obj (DIAPER)
+    ADDRESS: 1354H
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  ONEPAGECHVALUE
+    MODULE:  .\Obj\diaper.obj (DIAPER)
+    ADDRESS: 1359H
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  ONEPAGECHVALUE
+    MODULE:  .\Obj\diaper.obj (DIAPER)
+    ADDRESS: 1370H
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  ONEPAGECHVALUE
+    MODULE:  .\Obj\diaper.obj (DIAPER)
+    ADDRESS: 1375H
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  ONEPAGECHVALUE
+    MODULE:  .\Obj\diaper.obj (DIAPER)
+    ADDRESS: 1398H
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  ONEPAGECHVALUE
+    MODULE:  .\Obj\diaper.obj (DIAPER)
+    ADDRESS: 139CH
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  ONEPAGECHVALUE
+    MODULE:  .\Obj\diaper.obj (DIAPER)
+    ADDRESS: 13B3H
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  ONEPAGECHVALUE
+    MODULE:  .\Obj\diaper.obj (DIAPER)
+    ADDRESS: 13B8H
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  CHREADCOUNT
+    MODULE:  .\Obj\diaper.obj (DIAPER)
+    ADDRESS: 1652H
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  CHREADCOUNT
+    MODULE:  .\Obj\diaper.obj (DIAPER)
+    ADDRESS: 1661H
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  PAGEWRITECOUNT
+    MODULE:  .\Obj\diaper.obj (DIAPER)
+    ADDRESS: 166AH
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  _IAPERASESECTOR
+    MODULE:  .\Obj\diaper.obj (DIAPER)
+    ADDRESS: 167BH
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  PAGEWRITECOUNT
+    MODULE:  .\Obj\diaper.obj (DIAPER)
+    ADDRESS: 1684H
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  ONEPAGECHVALUE
+    MODULE:  .\Obj\diaper.obj (DIAPER)
+    ADDRESS: 1697H
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  ONEPAGECHVALUE
+    MODULE:  .\Obj\diaper.obj (DIAPER)
+    ADDRESS: 1699H
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  ?_IAPWRITEBYTE?BYTE
+    MODULE:  .\Obj\diaper.obj (DIAPER)
+    ADDRESS: 169BH
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  _IAPWRITEBYTE
+    MODULE:  .\Obj\diaper.obj (DIAPER)
+    ADDRESS: 16A4H
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  PAGEWRITECOUNT
+    MODULE:  .\Obj\diaper.obj (DIAPER)
+    ADDRESS: 16A7H
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  PAGEWRITECOUNT
+    MODULE:  .\Obj\diaper.obj (DIAPER)
+    ADDRESS: 16C0H
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  _DELAYMS
+    MODULE:  .\Obj\diaper.obj (DIAPER)
+    ADDRESS: 2194H
+Program Size: data=9.0 xdata=372 code=8667
+creating hex file from ".\Obj\DiaperStc"...
+".\Obj\DiaperStc" - 0 Error(s), 40 Warning(s).
+Clean started: Project: 'Stepper'
+   deleting intermediate output files for target 'DiaperStc'
+Build target 'DiaperStc'
+assembling STARTUP.A51...
+compiling diaper.c...
+compiling main.c...
+Source\main.c(4): warning C318: can't open file 'REG51F.H'
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?STATE3_NEW2?DIAPER
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?ADC_INIT?DIAPER
+*** WARNING L1: UNRESOLVED EXTERNAL SYMBOL
+    SYMBOL:  _IAPERASESECTOR
+    MODULE:  .\Obj\diaper.obj (DIAPER)
+*** WARNING L1: UNRESOLVED EXTERNAL SYMBOL
+    SYMBOL:  PAGEWRITECOUNT
+    MODULE:  .\Obj\diaper.obj (DIAPER)
+*** WARNING L1: UNRESOLVED EXTERNAL SYMBOL
+    SYMBOL:  _DELAYMS
+    MODULE:  .\Obj\diaper.obj (DIAPER)
+*** WARNING L1: UNRESOLVED EXTERNAL SYMBOL
+    SYMBOL:  CHREADCOUNT
+    MODULE:  .\Obj\diaper.obj (DIAPER)
+*** WARNING L1: UNRESOLVED EXTERNAL SYMBOL
+    SYMBOL:  _IAPWRITEBYTE
+    MODULE:  .\Obj\diaper.obj (DIAPER)
+*** WARNING L1: UNRESOLVED EXTERNAL SYMBOL
+    SYMBOL:  ?_IAPWRITEBYTE?BYTE
+    MODULE:  .\Obj\diaper.obj (DIAPER)
+*** WARNING L1: UNRESOLVED EXTERNAL SYMBOL
+    SYMBOL:  ONEPAGECHVALUE
+    MODULE:  .\Obj\diaper.obj (DIAPER)
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  _DELAYMS
+    MODULE:  .\Obj\diaper.obj (DIAPER)
+    ADDRESS: 124BH
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  CHREADCOUNT
+    MODULE:  .\Obj\diaper.obj (DIAPER)
+    ADDRESS: 1260H
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  ONEPAGECHVALUE
+    MODULE:  .\Obj\diaper.obj (DIAPER)
+    ADDRESS: 12CFH
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  ONEPAGECHVALUE
+    MODULE:  .\Obj\diaper.obj (DIAPER)
+    ADDRESS: 12D3H
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  ONEPAGECHVALUE
+    MODULE:  .\Obj\diaper.obj (DIAPER)
+    ADDRESS: 12EDH
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  ONEPAGECHVALUE
+    MODULE:  .\Obj\diaper.obj (DIAPER)
+    ADDRESS: 12F2H
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  ONEPAGECHVALUE
+    MODULE:  .\Obj\diaper.obj (DIAPER)
+    ADDRESS: 132AH
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  ONEPAGECHVALUE
+    MODULE:  .\Obj\diaper.obj (DIAPER)
+    ADDRESS: 132EH
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  ONEPAGECHVALUE
+    MODULE:  .\Obj\diaper.obj (DIAPER)
+    ADDRESS: 1348H
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  ONEPAGECHVALUE
+    MODULE:  .\Obj\diaper.obj (DIAPER)
+    ADDRESS: 134DH
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  ONEPAGECHVALUE
+    MODULE:  .\Obj\diaper.obj (DIAPER)
+    ADDRESS: 1354H
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  ONEPAGECHVALUE
+    MODULE:  .\Obj\diaper.obj (DIAPER)
+    ADDRESS: 1359H
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  ONEPAGECHVALUE
+    MODULE:  .\Obj\diaper.obj (DIAPER)
+    ADDRESS: 1370H
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  ONEPAGECHVALUE
+    MODULE:  .\Obj\diaper.obj (DIAPER)
+    ADDRESS: 1375H
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  ONEPAGECHVALUE
+    MODULE:  .\Obj\diaper.obj (DIAPER)
+    ADDRESS: 1398H
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  ONEPAGECHVALUE
+    MODULE:  .\Obj\diaper.obj (DIAPER)
+    ADDRESS: 139CH
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  ONEPAGECHVALUE
+    MODULE:  .\Obj\diaper.obj (DIAPER)
+    ADDRESS: 13B3H
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  ONEPAGECHVALUE
+    MODULE:  .\Obj\diaper.obj (DIAPER)
+    ADDRESS: 13B8H
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  CHREADCOUNT
+    MODULE:  .\Obj\diaper.obj (DIAPER)
+    ADDRESS: 1652H
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  CHREADCOUNT
+    MODULE:  .\Obj\diaper.obj (DIAPER)
+    ADDRESS: 1661H
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  PAGEWRITECOUNT
+    MODULE:  .\Obj\diaper.obj (DIAPER)
+    ADDRESS: 166AH
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  _IAPERASESECTOR
+    MODULE:  .\Obj\diaper.obj (DIAPER)
+    ADDRESS: 167BH
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  PAGEWRITECOUNT
+    MODULE:  .\Obj\diaper.obj (DIAPER)
+    ADDRESS: 1684H
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  ONEPAGECHVALUE
+    MODULE:  .\Obj\diaper.obj (DIAPER)
+    ADDRESS: 1697H
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  ONEPAGECHVALUE
+    MODULE:  .\Obj\diaper.obj (DIAPER)
+    ADDRESS: 1699H
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  ?_IAPWRITEBYTE?BYTE
+    MODULE:  .\Obj\diaper.obj (DIAPER)
+    ADDRESS: 169BH
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  _IAPWRITEBYTE
+    MODULE:  .\Obj\diaper.obj (DIAPER)
+    ADDRESS: 16A4H
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  PAGEWRITECOUNT
+    MODULE:  .\Obj\diaper.obj (DIAPER)
+    ADDRESS: 16A7H
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  PAGEWRITECOUNT
+    MODULE:  .\Obj\diaper.obj (DIAPER)
+    ADDRESS: 16C0H
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  _DELAYMS
+    MODULE:  .\Obj\diaper.obj (DIAPER)
+    ADDRESS: 2194H
+Program Size: data=9.0 xdata=372 code=8667
+creating hex file from ".\Obj\Stepper"...
+".\Obj\Stepper" - 0 Error(s), 40 Warning(s).

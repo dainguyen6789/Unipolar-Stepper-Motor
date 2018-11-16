@@ -18,24 +18,24 @@ void wait (void)  {                   /* wait function */
 void main (void)  {
   unsigned int i, cycle;                     /* Delay var */
   unsigned char j;                    /* LED var */
-	P0M1=0x00;
-	P0M0=0xFF;
+	P3M1=0x00;
+	P3M0=0xFF;
 	// One revolution CCW using full step mode
 	while(1)
 	{
-			P0=0x13;
+			P3=0x13;
 			for (i = 0; i < 4000; i++)  {  /* Delay for 10000 Counts */
 				wait ();                       /* call wait function */
       }
-			P0=0x26;
+			P3=0x26;
 			for (i = 0; i < 4000; i++)  {  /* Delay for 10000 Counts */
 				wait ();                       /* call wait function */
       }
-			P0=0x4C;
+			P3=0x4C;
 			for (i = 0; i < 4000; i++)  {  /* Delay for 10000 Counts */
 				wait ();                       /* call wait function */
       }
-			P0=0x89;
+			P3=0x89;
 			for (i = 0; i < 4000; i++)  {  /* Delay for 10000 Counts */
 				wait ();                       /* call wait function */
       }

@@ -1,0 +1,1362 @@
+BL51 BANKED LINKER/LOCATER V6.22                                                        11/16/2018  11:01:05  PAGE 1
+
+
+BL51 BANKED LINKER/LOCATER V6.22, INVOKED BY:
+C:\KEIL_V5\C51\BIN\BL51.EXE .\Obj\STARTUP.obj, .\Obj\diaper.obj, .\Obj\main.obj TO .\Obj\Stepper REGFILE (.\Obj\Stepper.
+>> ORC) PRINT (.\Lis\Stepper.m51) RAMSIZE (256)
+
+
+MEMORY MODEL: LARGE WITH FLOATING POINT ARITHMETIC
+
+
+INPUT MODULES INCLUDED:
+  .\Obj\STARTUP.obj (?C_STARTUP)
+  .\Obj\diaper.obj (DIAPER)
+  .\Obj\main.obj (MAIN)
+  C:\KEIL_V5\C51\LIB\C51FPL.LIB (?C?FPADD)
+  C:\KEIL_V5\C51\LIB\C51FPL.LIB (?C?FPMUL)
+  C:\KEIL_V5\C51\LIB\C51FPL.LIB (?C?FPDIV)
+  C:\KEIL_V5\C51\LIB\C51FPL.LIB (?C?FPCMP)
+  C:\KEIL_V5\C51\LIB\C51FPL.LIB (?C?FCAST)
+  C:\KEIL_V5\C51\LIB\C51FPL.LIB (?C?CASTF)
+  C:\KEIL_V5\C51\LIB\C51FPL.LIB (?C?FPGETOPN)
+  C:\KEIL_V5\C51\LIB\C51L.LIB (?C_INIT)
+  C:\KEIL_V5\C51\LIB\C51L.LIB (?C?COPY)
+  C:\KEIL_V5\C51\LIB\C51L.LIB (?C?CLDPTR)
+  C:\KEIL_V5\C51\LIB\C51L.LIB (?C?CLDOPTR)
+  C:\KEIL_V5\C51\LIB\C51L.LIB (?C?CILDOPTR)
+  C:\KEIL_V5\C51\LIB\C51L.LIB (?C?CSTPTR)
+  C:\KEIL_V5\C51\LIB\C51L.LIB (?C?CSTOPTR)
+  C:\KEIL_V5\C51\LIB\C51L.LIB (?C?UIDIV)
+  C:\KEIL_V5\C51\LIB\C51L.LIB (?C?ILDOPTR)
+  C:\KEIL_V5\C51\LIB\C51L.LIB (?C?IILDOPTR)
+  C:\KEIL_V5\C51\LIB\C51L.LIB (?C?ISTOPTR)
+  C:\KEIL_V5\C51\LIB\C51L.LIB (?C?LMUL)
+  C:\KEIL_V5\C51\LIB\C51L.LIB (?C?LNOT)
+  C:\KEIL_V5\C51\LIB\C51L.LIB (?C?LNEG)
+  C:\KEIL_V5\C51\LIB\C51L.LIB (?C?ULCMP)
+  C:\KEIL_V5\C51\LIB\C51L.LIB (?C?ULSHR)
+  C:\KEIL_V5\C51\LIB\C51L.LIB (?C?LILDXDATA)
+  C:\KEIL_V5\C51\LIB\C51L.LIB (?C?LSTXDATA)
+  C:\KEIL_V5\C51\LIB\C51L.LIB (?C?LSTKXDATA)
+  C:\KEIL_V5\C51\LIB\C51L.LIB (?C?LCASE)
+  C:\KEIL_V5\C51\LIB\C51L.LIB (?C?IILDX)
+
+
+LINK MAP OF MODULE:  .\Obj\Stepper (?C_STARTUP)
+
+
+            TYPE    BASE      LENGTH    RELOCATION   SEGMENT NAME
+            -----------------------------------------------------
+
+            * * * * * * *   D A T A   M E M O R Y   * * * * * * *
+            REG     0000H     0008H     ABSOLUTE     "REG BANK 0"
+            IDATA   0008H     0001H     UNIT         ?STACK
+
+            * * * * * * *  X D A T A   M E M O R Y  * * * * * * *
+            XDATA   0000H     00AFH     UNIT         ?XD?DIAPER
+            XDATA   00AFH     003EH     UNIT         ?XD?_WALKCHANNEL_NEW?DIAPER
+            XDATA   00EDH     002CH     UNIT         ?XD?_READANDPROCESSDATA?DIAPER
+            XDATA   0119H     0026H     UNIT         ?XD?STATE3_NEW2?DIAPER
+            XDATA   013FH     0008H     UNIT         ?XD?_SETBITMASK_CURRENTRED?DIAPER
+BL51 BANKED LINKER/LOCATER V6.22                                                      11/16/2018  11:01:05  PAGE 2
+
+
+            XDATA   0147H     0006H     UNIT         ?XD?GETCHANNELSTATE?DIAPER
+            XDATA   014DH     0006H     UNIT         ?XD?GETDIFFFLAG?DIAPER
+            XDATA   0153H     0006H     UNIT         ?XD?GETAVERFLAG?DIAPER
+            XDATA   0159H     0006H     UNIT         ?XD?ISINSESSION?DIAPER
+            XDATA   015FH     0004H     UNIT         ?XD?_GETBITMASK_CURRENTRED?DIAPER
+            XDATA   0163H     0004H     UNIT         ?XD?_GETBITMASK_PRESERVED_ORANGE?DIAPER
+            XDATA   0167H     0004H     UNIT         ?XD?_GETBITMASK_PRESERVED_RED?DIAPER
+            XDATA   016BH     0004H     UNIT         ?XD?_GETBITMASK_PRESERVED_FLASHRED?DIAPER
+            XDATA   016FH     0003H     UNIT         _XDATA_GROUP_
+            XDATA   0172H     0001H     UNIT         ?XD?_RESETBITMASK_YELLOW_TRIGGERED?DIAPER
+            XDATA   0173H     0001H     UNIT         ?XD?_RESETBITMASK_GLOBAL?DIAPER
+            XDATA   0174H     0001H     UNIT         ?XD?_SETBITMASK_PRESERVED_ORANGE?DIAPER
+            XDATA   0175H     0001H     UNIT         ?XD?_SETBITMASK_PRESERVED_RED?DIAPER
+            XDATA   0176H     0001H     UNIT         ?XD?_SETBITMASK_PRESERVED_FLASHRED?DIAPER
+
+            * * * * * * *   C O D E   M E M O R Y   * * * * * * *
+            CODE    0000H     0003H     ABSOLUTE     
+            CODE    0003H     0A5CH     UNIT         ?PR?_WALKCHANNEL_NEW?DIAPER
+            CODE    0A5FH     07D0H     UNIT         ?C?LIB_CODE
+            CODE    122FH     04E0H     UNIT         ?PR?_READANDPROCESSDATA?DIAPER
+            CODE    170FH     0442H     UNIT         ?PR?STATE3_NEW2?DIAPER
+            CODE    1B51H     0108H     UNIT         ?PR?_RESETBITMASK_GLOBAL?DIAPER
+            CODE    1C59H     00A8H     UNIT         ?C_INITSEG
+            CODE    1D01H     00A1H     UNIT         ?PR?_SETBITMASK_CURRENTRED?DIAPER
+            CODE    1DA2H     008CH     UNIT         ?C_C51STARTUP
+            CODE    1E2EH     005EH     UNIT         ?PR?_GETBITMASK_CURRENTRED?DIAPER
+            CODE    1E8CH     005BH     UNIT         ?PR?MAIN?MAIN
+            CODE    1EE7H     0055H     UNIT         ?PR?_GETBITMASK_PRESERVED_ORANGE?DIAPER
+            CODE    1F3CH     0053H     UNIT         ?PR?_GETBITMASK_PRESERVED_FLASHRED?DIAPER
+            CODE    1F8FH     0050H     UNIT         ?PR?_GETBITMASK_PRESERVED_RED?DIAPER
+            CODE    1FDFH     0038H     UNIT         ?PR?ISINSESSION?DIAPER
+            CODE    2017H     0036H     UNIT         ?PR?_SETBITMASK_PRESERVED_ORANGE?DIAPER
+            CODE    204DH     0032H     UNIT         ?PR?_RESETBITMASK_YELLOW_TRIGGERED?DIAPER
+            CODE    207FH     0031H     UNIT         ?PR?_SETBITMASK_PRESERVED_FLASHRED?DIAPER
+            CODE    20B0H     0031H     UNIT         ?PR?_ADC_GETRESULT?DIAPER
+            CODE    20E1H     002EH     UNIT         ?PR?_SETBITMASK_PRESERVED_RED?DIAPER
+            CODE    210FH     002BH     UNIT         ?PR?_SETCHANNELSTATE?DIAPER
+            CODE    213AH     0021H     UNIT         ?PR?_RESETDIFFFLAG?DIAPER
+            CODE    215BH     0021H     UNIT         ?PR?_RESETINSESSIONFLAG?DIAPER
+            CODE    217CH     001EH     UNIT         ?PR?_RESETAVERFLAG?DIAPER
+            CODE    219AH     0015H     UNIT         ?PR?ADC_INIT?DIAPER
+            CODE    21AFH     0012H     UNIT         ?PR?GETDIFFFLAG?DIAPER
+            CODE    21C1H     0012H     UNIT         ?PR?GETAVERFLAG?DIAPER
+            CODE    21D3H     0008H     UNIT         ?PR?GETCHANNELSTATE?DIAPER
+            CODE    21DBH     0008H     UNIT         ?PR?_SETDIFFFLAG?DIAPER
+            CODE    21E3H     0008H     UNIT         ?PR?_SETAVERFLAG?DIAPER
+            CODE    21EBH     0008H     UNIT         ?PR?_SETINSESSIONFLAG?DIAPER
+            CODE    21F3H     0001H     UNIT         ?PR?WAIT?MAIN
+
+
+
+OVERLAY MAP OF MODULE:   .\Obj\Stepper (?C_STARTUP)
+
+
+SEGMENT                                            XDATA_GROUP
+  +--> CALLED SEGMENT                            START    LENGTH
+----------------------------------------------------------------
+BL51 BANKED LINKER/LOCATER V6.22                                                      11/16/2018  11:01:05  PAGE 3
+
+
+?C_C51STARTUP                                    -----    -----
+  +--> ?PR?MAIN?MAIN
+  +--> ?C_INITSEG
+
+?PR?MAIN?MAIN                                    016FH    0003H
+  +--> ?PR?WAIT?MAIN
+
+
+
+UNRESOLVED EXTERNAL SYMBOLS:
+   ?_IAPWRITEBYTE?BYTE
+   CHREADCOUNT
+   ONEPAGECHVALUE
+   PAGEWRITECOUNT
+   _DELAYMS
+   _IAPERASESECTOR
+   _IAPWRITEBYTE
+
+
+
+SYMBOL TABLE OF MODULE:  .\Obj\Stepper (?C_STARTUP)
+
+  VALUE           TYPE          NAME
+  ----------------------------------
+
+  -------         MODULE        ?C_STARTUP
+  C:1DA2H         SEGMENT       ?C_C51STARTUP
+  I:0008H         SEGMENT       ?STACK
+  C:0000H         PUBLIC        ?C_STARTUP
+  D:00E0H         SYMBOL        ACC
+  D:00F0H         SYMBOL        B
+  D:0083H         SYMBOL        DPH
+  D:0082H         SYMBOL        DPL
+  N:0000H         SYMBOL        IBPSTACK
+  N:0100H         SYMBOL        IBPSTACKTOP
+  N:0080H         SYMBOL        IDATALEN
+  C:1DA5H         SYMBOL        IDATALOOP
+  N:0000H         SYMBOL        PBPSTACK
+  N:0100H         SYMBOL        PBPSTACKTOP
+  N:0000H         SYMBOL        PDATALEN
+  N:0000H         SYMBOL        PDATASTART
+  N:0000H         SYMBOL        PPAGE
+  N:0000H         SYMBOL        PPAGEENABLE
+  D:00A0H         SYMBOL        PPAGE_SFR
+  D:0081H         SYMBOL        SP
+  C:1DA2H         SYMBOL        STARTUP1
+  N:0000H         SYMBOL        XBPSTACK
+  N:0000H         SYMBOL        XBPSTACKTOP
+  N:0000H         SYMBOL        XDATALEN
+  N:0000H         SYMBOL        XDATASTART
+  C:0000H         LINE#         126
+  C:1DA2H         LINE#         133
+  C:1DA4H         LINE#         134
+  C:1DA5H         LINE#         135
+  C:1DA6H         LINE#         136
+  C:1DA8H         LINE#         185
+  C:1DABH         LINE#         196
+BL51 BANKED LINKER/LOCATER V6.22                                                      11/16/2018  11:01:05  PAGE 4
+
+
+  -------         ENDMOD        ?C_STARTUP
+
+  -------         MODULE        DIAPER
+  C:0000H         SYMBOL        _ICE_DUMMY_
+  C:2153H         PUBLIC        _ResetDiffFlag
+  C:2005H         PUBLIC        isInSession
+  D:0092H         PUBLIC        P1M0
+  D:0091H         PUBLIC        P1M1
+  D:0080H         PUBLIC        P0
+  X:0000H         PUBLIC        t_count
+  D:0090H         PUBLIC        P1
+  X:0001H         PUBLIC        MAXDIFF
+  D:00A0H         PUBLIC        P2
+  D:00B0H         PUBLIC        P3
+  D:00C0H         PUBLIC        P4
+  D:00C8H         PUBLIC        P5
+  X:0011H         PUBLIC        debugInfo_Ch_Value
+  D:00E8H         PUBLIC        P6
+  D:00F8H         PUBLIC        P7
+  X:0021H         PUBLIC        COUNT
+  D:00A8H         PUBLIC        IE
+  X:0022H         PUBLIC        BILLBOARD
+  X:0026H         PUBLIC        prevMovAvg
+  C:2192H         PUBLIC        _ResetAverFlag
+  D:00BDH         PUBLIC        ADC_RES
+  C:170FH         PUBLIC        State3_new2
+  X:0036H         PUBLIC        MAXAVER
+  D:00B8H         PUBLIC        IP
+  X:0046H         PUBLIC        DIFF
+  C:21AFH         PUBLIC        GetDiffFlag
+  C:204DH         PUBLIC        _ResetBitMask_Yellow_Triggered
+  X:0056H         PUBLIC        result
+  D:00D8H         PUBLIC        CCON
+  C:2174H         PUBLIC        _ResetInSessionFlag
+  C:21DBH         PUBLIC        _SetDiffFlag
+  C:1EE7H         PUBLIC        _GetBitMask_Preserved_Orange
+  X:005AH         PUBLIC        TRIGERCHS
+  C:21C1H         PUBLIC        GetAverFlag
+  D:00BCH         PUBLIC        ADC_CONTR
+  D:0098H         PUBLIC        SCON
+  C:2017H         PUBLIC        _SetBitMask_Preserved_Orange
+  D:0088H         PUBLIC        TCON
+  X:005EH         PUBLIC        currStates
+  C:1E2EH         PUBLIC        _GetBitMask_CurrentRed
+  B:00C8H.4       PUBLIC        P54
+  C:21E3H         PUBLIC        _SetAverFlag
+  X:0076H         PUBLIC        SumTotal
+  C:219AH         PUBLIC        ADC_Init
+  X:0086H         PUBLIC        TRIGERCHS_GLOBAL
+  C:1D01H         PUBLIC        _SetBitMask_CurrentRed
+  C:21EBH         PUBLIC        _SetInSessionFlag
+  C:20B9H         PUBLIC        _ADC_GetResult
+  X:008AH         PUBLIC        MOVINGAVERAGE
+  X:009AH         PUBLIC        LIFESPAN
+  C:1F3CH         PUBLIC        _GetBitMask_Preserved_FlashRed
+  D:009DH         PUBLIC        P1ASF
+  X:009EH         PUBLIC        ALERTTRYAGAIN
+BL51 BANKED LINKER/LOCATER V6.22                                                      11/16/2018  11:01:05  PAGE 5
+
+
+  X:009FH         PUBLIC        LIFESPAN_US
+  X:00A3H         PUBLIC        CHS
+  D:00BEH         PUBLIC        ADC_RESL
+  C:207FH         PUBLIC        _SetBitMask_Preserved_FlashRed
+  C:21D3H         PUBLIC        GetChannelState
+  C:1F8FH         PUBLIC        _GetBitMask_Preserved_Red
+  X:00A7H         PUBLIC        MAX
+  C:1B51H         PUBLIC        _ResetBitMask_Global
+  C:212DH         PUBLIC        _SetChannelState
+  C:20E1H         PUBLIC        _SetBitMask_Preserved_Red
+  C:122FH         PUBLIC        _ReadAndProcessData
+  D:00D0H         PUBLIC        PSW
+  C:0003H         PUBLIC        _WalkChannel_new
+  -------         PROC          _READANDPROCESSDATA
+  X:00EDH         SYMBOL        chvalues
+  -------         DO            
+  X:00F0H         SYMBOL        flag
+  X:00F1H         SYMBOL        val
+  X:00F9H         SYMBOL        val2
+  X:0101H         SYMBOL        i
+  X:0102H         SYMBOL        j
+  X:0103H         SYMBOL        oldAvag
+  X:0107H         SYMBOL        oldMaxAvag
+  X:010BH         SYMBOL        oldMaxDiff
+  X:010FH         SYMBOL        newAvag
+  X:0113H         SYMBOL        curDiff
+  X:0117H         SYMBOL        arraySubOffset
+  -------         ENDDO         
+  C:122FH         LINE#         94
+  C:123AH         LINE#         95
+  C:123AH         LINE#         99
+  C:1241H         LINE#         103
+  C:1245H         LINE#         104
+  C:1247H         LINE#         106
+  C:124DH         LINE#         108
+  C:125FH         LINE#         109
+  C:125FH         LINE#         110
+  C:1271H         LINE#         113
+  C:128CH         LINE#         114
+  C:12B8H         LINE#         117
+  C:12D9H         LINE#         118
+  C:12F8H         LINE#         120
+  C:1313H         LINE#         123
+  C:1334H         LINE#         124
+  C:1353H         LINE#         135
+  C:136FH         LINE#         136
+  C:138FH         LINE#         137
+  C:13B2H         LINE#         138
+  C:13D2H         LINE#         145
+  C:13F1H         LINE#         146
+  C:1414H         LINE#         147
+  C:1433H         LINE#         149
+  C:1456H         LINE#         153
+  C:1481H         LINE#         154
+  C:14CAH         LINE#         156
+  C:151AH         LINE#         158
+  C:1549H         LINE#         160
+BL51 BANKED LINKER/LOCATER V6.22                                                      11/16/2018  11:01:05  PAGE 6
+
+
+  C:156CH         LINE#         163
+  C:158EH         LINE#         165
+  C:15B1H         LINE#         168
+  C:15D3H         LINE#         173
+  C:15F6H         LINE#         174
+  C:1615H         LINE#         177
+  C:163DH         LINE#         178
+  C:163DH         LINE#         179
+  C:1651H         LINE#         180
+  C:1651H         LINE#         184
+  C:165AH         LINE#         185
+  C:165AH         LINE#         186
+  C:165DH         LINE#         187
+  C:165FH         LINE#         189
+  C:165FH         LINE#         190
+  C:1664H         LINE#         191
+  C:167DH         LINE#         192
+  C:16A6H         LINE#         194
+  C:16C5H         LINE#         195
+  C:16C5H         LINE#         199
+  C:16E1H         LINE#         200
+  C:16F8H         LINE#         233
+  C:1701H         LINE#         235
+  C:1703H         LINE#         237
+  C:1709H         LINE#         239
+  C:170EH         LINE#         241
+  -------         ENDPROC       _READANDPROCESSDATA
+  -------         PROC          STATE3_NEW2
+  -------         DO            
+  X:0119H         SYMBOL        chvalues
+  X:0121H         SYMBOL        newEventFlag
+  X:0122H         SYMBOL        currSnap
+  X:0126H         SYMBOL        smState
+  X:012AH         SYMBOL        i
+  X:012BH         SYMBOL        mask
+  X:012FH         SYMBOL        state
+  X:0133H         SYMBOL        cnt
+  X:0137H         SYMBOL        triggered_Yellow
+  X:0138H         SYMBOL        triggered_Orange
+  X:0139H         SYMBOL        triggered_Red
+  X:013AH         SYMBOL        triggered_FlashRed
+  X:013BH         SYMBOL        triggered_Yellow_Mask
+  X:013CH         SYMBOL        triggered_Orange_Mask
+  X:013DH         SYMBOL        triggered_Red_Mask
+  X:013EH         SYMBOL        triggered_FlashRed_Mask
+  -------         ENDDO         
+  C:170FH         LINE#         244
+  C:170FH         LINE#         245
+  C:170FH         LINE#         248
+  C:1714H         LINE#         249
+  C:171CH         LINE#         250
+  C:1726H         LINE#         253
+  C:1730H         LINE#         254
+  C:173AH         LINE#         255
+  C:1744H         LINE#         257
+  C:1749H         LINE#         258
+  C:174BH         LINE#         259
+BL51 BANKED LINKER/LOCATER V6.22                                                      11/16/2018  11:01:05  PAGE 7
+
+
+  C:174DH         LINE#         260
+  C:174FH         LINE#         262
+  C:1751H         LINE#         263
+  C:1753H         LINE#         264
+  C:1755H         LINE#         265
+  C:1757H         LINE#         271
+  C:1776H         LINE#         273
+  C:177CH         LINE#         315
+  C:178AH         LINE#         325
+  C:178FH         LINE#         326
+  C:178FH         LINE#         327
+  C:17CCH         LINE#         353
+  C:17D8H         LINE#         360
+  C:17EAH         LINE#         361
+  C:17EAH         LINE#         364
+  C:1803H         LINE#         365
+  C:1803H         LINE#         366
+  C:1851H         LINE#         367
+  C:1870H         LINE#         368
+  C:1870H         LINE#         371
+  C:1887H         LINE#         372
+  C:1887H         LINE#         373
+  C:18D5H         LINE#         374
+  C:18D5H         LINE#         377
+  C:18E6H         LINE#         378
+  C:18E6H         LINE#         379
+  C:1932H         LINE#         380
+  C:1932H         LINE#         381
+  C:193BH         LINE#         387
+  C:1948H         LINE#         388
+  C:1948H         LINE#         389
+  C:194EH         LINE#         390
+  C:1953H         LINE#         391
+  C:1953H         LINE#         393
+  C:1961H         LINE#         394
+  C:1961H         LINE#         395
+  C:1967H         LINE#         396
+  C:1982H         LINE#         399
+  C:1988H         LINE#         400
+  C:1988H         LINE#         401
+  C:198DH         LINE#         402
+  C:198DH         LINE#         403
+  C:198DH         LINE#         405
+  C:19B4H         LINE#         406
+  C:19B4H         LINE#         407
+  C:19B9H         LINE#         408
+  C:19D1H         LINE#         411
+  C:19D7H         LINE#         412
+  C:19D7H         LINE#         413
+  C:19DCH         LINE#         414
+  C:19DCH         LINE#         415
+  C:19DCH         LINE#         417
+  C:1A03H         LINE#         418
+  C:1A03H         LINE#         419
+  C:1A09H         LINE#         420
+  C:1A21H         LINE#         423
+  C:1A27H         LINE#         424
+BL51 BANKED LINKER/LOCATER V6.22                                                      11/16/2018  11:01:05  PAGE 8
+
+
+  C:1A27H         LINE#         425
+  C:1A2CH         LINE#         426
+  C:1A2CH         LINE#         427
+  C:1A2CH         LINE#         431
+  C:1A36H         LINE#         433
+  C:1A3CH         LINE#         434
+  C:1A3CH         LINE#         435
+  C:1A44H         LINE#         436
+  C:1A66H         LINE#         438
+  C:1A66H         LINE#         440
+  C:1A6CH         LINE#         441
+  C:1A6CH         LINE#         442
+  C:1A74H         LINE#         443
+  C:1A9DH         LINE#         445
+  C:1A9DH         LINE#         447
+  C:1AA3H         LINE#         448
+  C:1AA3H         LINE#         449
+  C:1AABH         LINE#         450
+  C:1ADCH         LINE#         452
+  C:1ADCH         LINE#         454
+  C:1AE2H         LINE#         455
+  C:1AE2H         LINE#         456
+  C:1AEAH         LINE#         457
+  C:1B1BH         LINE#         459
+  C:1B1BH         LINE#         464
+  C:1B2FH         LINE#         465
+  C:1B2FH         LINE#         466
+  C:1B3CH         LINE#         483
+  C:1B4BH         LINE#         484
+  C:1B4BH         LINE#         486
+  C:1B50H         LINE#         487
+  -------         ENDPROC       STATE3_NEW2
+  -------         PROC          _WALKCHANNEL_NEW
+  X:00AFH         SYMBOL        currStates
+  X:00B2H         SYMBOL        i
+  X:00B3H         SYMBOL        newEventFlag
+  X:00B4H         SYMBOL        chvalue
+  -------         DO            
+  X:00B6H         SYMBOL        smState
+  X:00BAH         SYMBOL        diffFlag
+  D:0004H         SYMBOL        averFlag
+  X:00BEH         SYMBOL        chsSet
+  X:00BFH         SYMBOL        oldval
+  X:00C3H         SYMBOL        currCount
+  X:00C7H         SYMBOL        Signal_Drop
+  X:00CBH         SYMBOL        Threshold_Orange
+  D:0004H         SYMBOL        Threshold_Red
+  X:00CFH         SYMBOL        maxdiff
+  X:00D3H         SYMBOL        curdiff
+  X:00D7H         SYMBOL        maxaver
+  X:00DBH         SYMBOL        max
+  X:00DFH         SYMBOL        curr
+  X:00E3H         SYMBOL        newvalue
+  -------         DO            
+  X:00E7H         SYMBOL        rollback_count
+  -------         DO            
+  X:00EBH         SYMBOL        temp
+BL51 BANKED LINKER/LOCATER V6.22                                                      11/16/2018  11:01:05  PAGE 9
+
+
+  -------         ENDDO         
+  -------         ENDDO         
+  -------         ENDDO         
+  C:0003H         LINE#         490
+  C:0013H         LINE#         491
+  C:0013H         LINE#         508
+  C:0039H         LINE#         510
+  C:006CH         LINE#         513
+  C:0083H         LINE#         514
+  C:0083H         LINE#         515
+  C:00A1H         LINE#         516
+  C:00A3H         LINE#         518
+  C:00A3H         LINE#         519
+  C:00C0H         LINE#         520
+  C:00C0H         LINE#         523
+  C:00EDH         LINE#         526
+  C:00F3H         LINE#         527
+  C:00F3H         LINE#         528
+  C:0113H         LINE#         529
+  C:0115H         LINE#         531
+  C:0115H         LINE#         532
+  C:0134H         LINE#         533
+  C:0134H         LINE#         536
+  C:014EH         LINE#         538
+  C:0193H         LINE#         539
+  C:0193H         LINE#         540
+  C:0193H         LINE#         541
+  C:01B6H         LINE#         542
+  C:01B6H         LINE#         545
+  C:01E0H         LINE#         549
+  C:01E3H         LINE#         550
+  C:01FFH         LINE#         554
+  C:0218H         LINE#         562
+  C:022EH         LINE#         564
+  C:0231H         LINE#         566
+  C:0231H         LINE#         568
+  C:0231H         LINE#         570
+  C:0231H         LINE#         572
+  C:0231H         LINE#         573
+  C:0231H         LINE#         574
+  C:0231H         LINE#         575
+  C:025BH         LINE#         576
+  C:0263H         LINE#         577
+  C:0266H         LINE#         580
+  C:0266H         LINE#         582
+  C:0289H         LINE#         585
+  C:02A8H         LINE#         588
+  C:02CAH         LINE#         590
+  C:036AH         LINE#         592
+  C:036AH         LINE#         594
+  C:0373H         LINE#         595
+  C:0373H         LINE#         596
+  C:038CH         LINE#         597
+  C:0392H         LINE#         598
+  C:0394H         LINE#         600
+  C:0394H         LINE#         601
+  C:0397H         LINE#         602
+BL51 BANKED LINKER/LOCATER V6.22                                                      11/16/2018  11:01:05  PAGE 10
+
+
+  C:03BAH         LINE#         603
+  C:03BAH         LINE#         607
+  C:03F0H         LINE#         608
+  C:0413H         LINE#         609
+  C:0432H         LINE#         611
+  C:0446H         LINE#         614
+  C:045AH         LINE#         621
+  C:0488H         LINE#         622
+  C:0488H         LINE#         623
+  C:049CH         LINE#         627
+  C:04BEH         LINE#         630
+  C:04C1H         LINE#         631
+  C:04C1H         LINE#         635
+  C:04C1H         LINE#         637
+  C:04C1H         LINE#         638
+  C:04CAH         LINE#         639
+  C:04CAH         LINE#         640
+  C:04CDH         LINE#         641
+  C:04D0H         LINE#         642
+  C:04D3H         LINE#         643
+  C:04F3H         LINE#         644
+  C:04FCH         LINE#         646
+  C:04FEH         LINE#         648
+  C:0500H         LINE#         650
+  C:0500H         LINE#         651
+  C:0503H         LINE#         652
+  C:0521H         LINE#         653
+  C:0521H         LINE#         655
+  C:0521H         LINE#         658
+  C:053DH         LINE#         659
+  C:0540H         LINE#         661
+  C:0540H         LINE#         662
+  C:0562H         LINE#         663
+  C:0562H         LINE#         664
+  C:0565H         LINE#         665
+  C:0580H         LINE#         666
+  C:0583H         LINE#         669
+  C:059EH         LINE#         671
+  C:05A1H         LINE#         673
+  C:05A1H         LINE#         676
+  C:05BEH         LINE#         677
+  C:05BEH         LINE#         679
+  C:05DAH         LINE#         682
+  C:05F3H         LINE#         686
+  C:061AH         LINE#         689
+  C:061CH         LINE#         691
+  C:061FH         LINE#         694
+  C:064FH         LINE#         695
+  C:064FH         LINE#         696
+  C:0665H         LINE#         697
+  C:0668H         LINE#         699
+  C:0668H         LINE#         701
+  C:0680H         LINE#         702
+  C:0680H         LINE#         704
+  C:0683H         LINE#         706
+  C:0683H         LINE#         707
+  C:0683H         LINE#         709
+BL51 BANKED LINKER/LOCATER V6.22                                                      11/16/2018  11:01:05  PAGE 11
+
+
+  C:06A6H         LINE#         710
+  C:06C5H         LINE#         713
+  C:0713H         LINE#         714
+  C:0713H         LINE#         716
+  C:0762H         LINE#         719
+  C:077FH         LINE#         720
+  C:077FH         LINE#         721
+  C:07C1H         LINE#         723
+  C:07D2H         LINE#         724
+  C:07D2H         LINE#         725
+  C:0828H         LINE#         726
+  C:082AH         LINE#         728
+  C:082AH         LINE#         729
+  C:0846H         LINE#         730
+  C:0846H         LINE#         731
+  C:0846H         LINE#         732
+  C:0846H         LINE#         734
+  C:0871H         LINE#         735
+  C:0871H         LINE#         743
+  C:0896H         LINE#         746
+  C:08FDH         LINE#         749
+  C:095EH         LINE#         755
+  C:0973H         LINE#         756
+  C:0973H         LINE#         758
+  C:0976H         LINE#         761
+  C:0994H         LINE#         764
+  C:099EH         LINE#         768
+  C:09A1H         LINE#         769
+  C:09A1H         LINE#         771
+  C:09C4H         LINE#         772
+  C:09C4H         LINE#         775
+  C:09C7H         LINE#         778
+  C:09E5H         LINE#         782
+  C:09E8H         LINE#         784
+  C:09E8H         LINE#         787
+  C:09E8H         LINE#         791
+  C:0A06H         LINE#         793
+  C:0A06H         LINE#         795
+  C:0A06H         LINE#         797
+  C:0A06H         LINE#         798
+  C:0A09H         LINE#         800
+  C:0A09H         LINE#         801
+  C:0A0FH         LINE#         802
+  C:0A12H         LINE#         803
+  C:0A15H         LINE#         804
+  C:0A33H         LINE#         805
+  C:0A53H         LINE#         806
+  C:0A5CH         LINE#         807
+  C:0A5CH         LINE#         808
+  C:0A5CH         LINE#         812
+  C:0A5EH         LINE#         814
+  -------         ENDPROC       _WALKCHANNEL_NEW
+  -------         PROC          _SETBITMASK_CURRENTRED
+  D:0002H         SYMBOL        i
+  D:0003H         SYMBOL        setVal
+  -------         DO            
+  X:013FH         SYMBOL        global
+BL51 BANKED LINKER/LOCATER V6.22                                                      11/16/2018  11:01:05  PAGE 12
+
+
+  X:0143H         SYMBOL        mask
+  -------         ENDDO         
+  C:1D01H         LINE#         864
+  C:1D05H         LINE#         865
+  C:1D05H         LINE#         869
+  C:1D19H         LINE#         870
+  C:1D38H         LINE#         872
+  C:1D3EH         LINE#         873
+  C:1D3EH         LINE#         874
+  C:1D60H         LINE#         875
+  C:1D62H         LINE#         877
+  C:1D62H         LINE#         878
+  C:1D8EH         LINE#         879
+  C:1D8EH         LINE#         881
+  -------         ENDPROC       _SETBITMASK_CURRENTRED
+  -------         PROC          _GETBITMASK_CURRENTRED
+  D:0007H         SYMBOL        i
+  -------         DO            
+  X:015FH         SYMBOL        mask
+  -------         ENDDO         
+  C:1E2EH         LINE#         886
+  C:1E2EH         LINE#         887
+  C:1E2EH         LINE#         890
+  C:1E4BH         LINE#         891
+  C:1E8BH         LINE#         892
+  -------         ENDPROC       _GETBITMASK_CURRENTRED
+  -------         PROC          _GETBITMASK_PRESERVED_ORANGE
+  D:0007H         SYMBOL        mask
+  -------         DO            
+  X:0163H         SYMBOL        check
+  -------         ENDDO         
+  C:1EE7H         LINE#         895
+  C:1EE7H         LINE#         896
+  C:1EE7H         LINE#         899
+  C:1EFBH         LINE#         900
+  C:1F3BH         LINE#         901
+  -------         ENDPROC       _GETBITMASK_PRESERVED_ORANGE
+  -------         PROC          _GETBITMASK_PRESERVED_RED
+  D:0007H         SYMBOL        mask
+  -------         DO            
+  X:0167H         SYMBOL        check
+  -------         ENDDO         
+  C:1F8FH         LINE#         904
+  C:1F8FH         LINE#         905
+  C:1F8FH         LINE#         908
+  C:1F9EH         LINE#         909
+  C:1FDEH         LINE#         910
+  -------         ENDPROC       _GETBITMASK_PRESERVED_RED
+  -------         PROC          _GETBITMASK_PRESERVED_FLASHRED
+  D:0007H         SYMBOL        mask
+  -------         DO            
+  X:016BH         SYMBOL        check
+  -------         ENDDO         
+  C:1F3CH         LINE#         913
+  C:1F3CH         LINE#         914
+  C:1F3CH         LINE#         917
+  C:1F4EH         LINE#         918
+BL51 BANKED LINKER/LOCATER V6.22                                                      11/16/2018  11:01:05  PAGE 13
+
+
+  C:1F8EH         LINE#         919
+  -------         ENDPROC       _GETBITMASK_PRESERVED_FLASHRED
+  -------         PROC          _RESETBITMASK_YELLOW_TRIGGERED
+  X:0172H         SYMBOL        triggered_Yellow_Mask
+  C:204DH         LINE#         922
+  C:2052H         LINE#         923
+  C:2052H         LINE#         924
+  C:2055H         LINE#         925
+  C:2055H         LINE#         926
+  C:205AH         LINE#         927
+  C:205AH         LINE#         929
+  C:2061H         LINE#         930
+  C:2061H         LINE#         931
+  C:2066H         LINE#         932
+  C:2066H         LINE#         934
+  C:206DH         LINE#         935
+  C:206DH         LINE#         936
+  C:2072H         LINE#         937
+  C:2072H         LINE#         939
+  C:2079H         LINE#         940
+  C:2079H         LINE#         941
+  C:207EH         LINE#         942
+  C:207EH         LINE#         943
+  -------         ENDPROC       _RESETBITMASK_YELLOW_TRIGGERED
+  -------         PROC          _RESETBITMASK_GLOBAL
+  X:0173H         SYMBOL        i
+  -------         DO            
+  D:0004H         SYMBOL        mask
+  -------         ENDDO         
+  C:1B51H         LINE#         946
+  C:1B56H         LINE#         947
+  C:1B56H         LINE#         950
+  C:1B5CH         LINE#         952
+  C:1B73H         LINE#         953
+  C:1B96H         LINE#         955
+  C:1BB4H         LINE#         956
+  C:1BD7H         LINE#         958
+  C:1BF5H         LINE#         959
+  C:1C18H         LINE#         961
+  C:1C36H         LINE#         962
+  -------         ENDPROC       _RESETBITMASK_GLOBAL
+  -------         PROC          _SETBITMASK_PRESERVED_ORANGE
+  X:0174H         SYMBOL        mask
+  C:2017H         LINE#         967
+  C:201CH         LINE#         968
+  C:201CH         LINE#         969
+  -------         ENDPROC       _SETBITMASK_PRESERVED_ORANGE
+  -------         PROC          _SETBITMASK_PRESERVED_RED
+  X:0175H         SYMBOL        mask
+  C:20E1H         LINE#         973
+  C:20E6H         LINE#         974
+  C:20E6H         LINE#         975
+  -------         ENDPROC       _SETBITMASK_PRESERVED_RED
+  -------         PROC          _SETBITMASK_PRESERVED_FLASHRED
+  X:0176H         SYMBOL        mask
+  C:207FH         LINE#         979
+  C:2084H         LINE#         980
+BL51 BANKED LINKER/LOCATER V6.22                                                      11/16/2018  11:01:05  PAGE 14
+
+
+  C:2084H         LINE#         981
+  -------         ENDPROC       _SETBITMASK_PRESERVED_FLASHRED
+  -------         PROC          GETCHANNELSTATE
+  X:0147H         SYMBOL        currStates
+  -------         DO            
+  D:0007H         SYMBOL        oldval
+  -------         ENDDO         
+  C:21D3H         LINE#         985
+  C:21D3H         LINE#         986
+  C:21D3H         LINE#         989
+  C:21D7H         LINE#         990
+  C:21DAH         LINE#         991
+  C:21DAH         LINE#         993
+  -------         ENDPROC       GETCHANNELSTATE
+  -------         PROC          GETDIFFFLAG
+  X:014DH         SYMBOL        currStates
+  -------         DO            
+  D:0007H         SYMBOL        tmp
+  -------         ENDDO         
+  C:21AFH         LINE#         996
+  C:21AFH         LINE#         997
+  C:21AFH         LINE#         1000
+  C:21B3H         LINE#         1001
+  C:21B5H         LINE#         1002
+  C:21C0H         LINE#         1004
+  -------         ENDPROC       GETDIFFFLAG
+  -------         PROC          GETAVERFLAG
+  X:0153H         SYMBOL        currStates
+  -------         DO            
+  D:0007H         SYMBOL        tmp
+  -------         ENDDO         
+  C:21C1H         LINE#         1007
+  C:21C1H         LINE#         1008
+  C:21C1H         LINE#         1011
+  C:21C5H         LINE#         1012
+  C:21C7H         LINE#         1014
+  C:21D2H         LINE#         1015
+  -------         ENDPROC       GETAVERFLAG
+  -------         PROC          _SETDIFFFLAG
+  D:0001H         SYMBOL        currStates
+  -------         DO            
+  D:0007H         SYMBOL        oldval
+  -------         ENDDO         
+  C:21DBH         LINE#         1018
+  C:21DBH         LINE#         1019
+  C:21DBH         LINE#         1022
+  C:21DEH         LINE#         1023
+  C:21E0H         LINE#         1024
+  -------         ENDPROC       _SETDIFFFLAG
+  -------         PROC          _SETAVERFLAG
+  D:0001H         SYMBOL        currStates
+  -------         DO            
+  D:0007H         SYMBOL        tmp
+  -------         ENDDO         
+  C:21E3H         LINE#         1028
+  C:21E3H         LINE#         1029
+  C:21E3H         LINE#         1032
+BL51 BANKED LINKER/LOCATER V6.22                                                      11/16/2018  11:01:05  PAGE 15
+
+
+  C:21E6H         LINE#         1033
+  C:21E8H         LINE#         1034
+  -------         ENDPROC       _SETAVERFLAG
+  -------         PROC          L?0160
+  -------         ENDPROC       L?0160
+  -------         PROC          _SETCHANNELSTATE
+  D:0001H         SYMBOL        currStates
+  D:0005H         SYMBOL        newstate
+  -------         DO            
+  D:0007H         SYMBOL        oldval
+  -------         ENDDO         
+  C:212DH         LINE#         1039
+  C:212DH         LINE#         1040
+  C:212DH         LINE#         1043
+  C:2130H         LINE#         1044
+  C:2133H         LINE#         1045
+  C:2137H         LINE#         1046
+  -------         ENDPROC       _SETCHANNELSTATE
+  -------         PROC          L?0159
+  -------         ENDPROC       L?0159
+  -------         PROC          ISINSESSION
+  X:0159H         SYMBOL        currStates
+  -------         DO            
+  D:0007H         SYMBOL        oldval
+  -------         ENDDO         
+  C:2005H         LINE#         1050
+  C:2005H         LINE#         1051
+  C:2005H         LINE#         1054
+  C:2009H         LINE#         1055
+  C:200BH         LINE#         1056
+  C:2016H         LINE#         1058
+  -------         ENDPROC       ISINSESSION
+  -------         PROC          _SETINSESSIONFLAG
+  D:0001H         SYMBOL        currStates
+  -------         DO            
+  D:0007H         SYMBOL        oldval
+  -------         ENDDO         
+  C:21EBH         LINE#         1061
+  C:21EBH         LINE#         1062
+  C:21EBH         LINE#         1065
+  C:21EEH         LINE#         1066
+  C:21F0H         LINE#         1067
+  -------         ENDPROC       _SETINSESSIONFLAG
+  -------         PROC          L?0162
+  -------         ENDPROC       L?0162
+  -------         PROC          _RESETAVERFLAG
+  D:0001H         SYMBOL        currStates
+  -------         DO            
+  D:0007H         SYMBOL        tmp
+  -------         ENDDO         
+  C:2192H         LINE#         1072
+  C:2192H         LINE#         1073
+  C:2192H         LINE#         1076
+  C:2195H         LINE#         1077
+  C:2197H         LINE#         1078
+  -------         ENDPROC       _RESETAVERFLAG
+  C:213AH         SYMBOL        L?0157
+BL51 BANKED LINKER/LOCATER V6.22                                                      11/16/2018  11:01:05  PAGE 16
+
+
+  C:213DH         SYMBOL        L?0158
+  -------         PROC          L?0156
+  -------         ENDPROC       L?0156
+  C:213AH         SYMBOL        L?0157
+  C:213DH         SYMBOL        L?0158
+  -------         PROC          _RESETDIFFFLAG
+  D:0001H         SYMBOL        currStates
+  -------         DO            
+  D:0007H         SYMBOL        oldval
+  -------         ENDDO         
+  C:2153H         LINE#         1083
+  C:2153H         LINE#         1084
+  C:2153H         LINE#         1087
+  C:2156H         LINE#         1088
+  C:2158H         LINE#         1089
+  -------         ENDPROC       _RESETDIFFFLAG
+  -------         PROC          L?0161
+  -------         ENDPROC       L?0161
+  -------         PROC          _RESETINSESSIONFLAG
+  D:0001H         SYMBOL        currStates
+  -------         DO            
+  D:0007H         SYMBOL        oldval
+  -------         ENDDO         
+  C:2174H         LINE#         1093
+  C:2174H         LINE#         1094
+  C:2174H         LINE#         1097
+  C:2177H         LINE#         1098
+  C:2179H         LINE#         1099
+  -------         ENDPROC       _RESETINSESSIONFLAG
+  -------         PROC          ADC_INIT
+  C:219AH         LINE#         1112
+  C:219AH         LINE#         1113
+  C:219AH         LINE#         1115
+  C:219DH         LINE#         1117
+  C:21A0H         LINE#         1120
+  C:21A3H         LINE#         1122
+  C:21A6H         LINE#         1125
+  C:21A9H         LINE#         1126
+  -------         ENDPROC       ADC_INIT
+  -------         PROC          L?0163
+  -------         ENDPROC       L?0163
+  -------         PROC          _ADC_GETRESULT
+  D:0007H         SYMBOL        ch
+  -------         DO            
+  D:0006H         SYMBOL        ADC_Value
+  -------         ENDDO         
+  C:20B9H         LINE#         1138
+  C:20B9H         LINE#         1139
+  C:20B9H         LINE#         1143
+  C:20BEH         LINE#         1144
+  C:20BFH         LINE#         1145
+  C:20C0H         LINE#         1146
+  C:20C1H         LINE#         1147
+  C:20C2H         LINE#         1148
+  C:20C3H         LINE#         1149
+  C:20C4H         LINE#         1151
+  C:20C9H         LINE#         1154
+BL51 BANKED LINKER/LOCATER V6.22                                                      11/16/2018  11:01:05  PAGE 17
+
+
+  C:20CCH         LINE#         1155
+  C:20D0H         LINE#         1156
+  C:20E0H         LINE#         1157
+  C:20E0H         LINE#         1158
+  -------         ENDPROC       _ADC_GETRESULT
+  -------         ENDMOD        DIAPER
+
+  -------         MODULE        MAIN
+  C:0000H         SYMBOL        _ICE_DUMMY_
+  D:0080H         PUBLIC        P0
+  D:00B2H         PUBLIC        P3M0
+  D:0090H         PUBLIC        P1
+  D:00B1H         PUBLIC        P3M1
+  D:00A0H         PUBLIC        P2
+  D:00B0H         PUBLIC        P3
+  D:00C0H         PUBLIC        P4
+  D:00C8H         PUBLIC        P5
+  D:00E8H         PUBLIC        P6
+  D:00F8H         PUBLIC        P7
+  D:00A8H         PUBLIC        IE
+  D:00B8H         PUBLIC        IP
+  D:00D8H         PUBLIC        CCON
+  C:1E8CH         PUBLIC        main
+  D:0098H         PUBLIC        SCON
+  D:0088H         PUBLIC        TCON
+  C:21F3H         PUBLIC        wait
+  D:00D0H         PUBLIC        PSW
+  -------         PROC          WAIT
+  C:21F3H         LINE#         14
+  C:21F3H         LINE#         16
+  -------         ENDPROC       WAIT
+  -------         PROC          MAIN
+  -------         DO            
+  D:0006H         SYMBOL        i
+  X:016FH         SYMBOL        cycle
+  X:0171H         SYMBOL        j
+  -------         ENDDO         
+  C:1E8CH         LINE#         18
+  C:1E8CH         LINE#         21
+  C:1E8FH         LINE#         22
+  C:1E92H         LINE#         24
+  C:1E92H         LINE#         25
+  C:1E92H         LINE#         26
+  C:1E95H         LINE#         27
+  C:1E98H         LINE#         28
+  C:1E9BH         LINE#         29
+  C:1EA6H         LINE#         30
+  C:1EA9H         LINE#         31
+  C:1EACH         LINE#         32
+  C:1EAFH         LINE#         33
+  C:1EBAH         LINE#         34
+  C:1EBDH         LINE#         35
+  C:1EC0H         LINE#         36
+  C:1EC3H         LINE#         37
+  C:1ECEH         LINE#         38
+  C:1ED1H         LINE#         39
+  C:1EDDH         LINE#         40
+BL51 BANKED LINKER/LOCATER V6.22                                                      11/16/2018  11:01:05  PAGE 18
+
+
+  C:1EE0H         LINE#         41
+  -------         ENDPROC       MAIN
+  -------         ENDMOD        MAIN
+
+  -------         MODULE        ?C?FPADD
+  C:0A66H         PUBLIC        ?C?FPADD
+  C:0A62H         PUBLIC        ?C?FPSUB
+  -------         ENDMOD        ?C?FPADD
+
+  -------         MODULE        ?C?FPMUL
+  C:0B57H         PUBLIC        ?C?FPMUL
+  -------         ENDMOD        ?C?FPMUL
+
+  -------         MODULE        ?C?FPDIV
+  C:0C60H         PUBLIC        ?C?FPDIV
+  -------         ENDMOD        ?C?FPDIV
+
+  -------         MODULE        ?C?FPCMP
+  C:0CFFH         PUBLIC        ?C?FPCMP
+  C:0CFDH         PUBLIC        ?C?FPCMP3
+  -------         ENDMOD        ?C?FPCMP
+
+  -------         MODULE        ?C?FCAST
+  C:0D80H         PUBLIC        ?C?FCASTC
+  C:0D7BH         PUBLIC        ?C?FCASTI
+  C:0D76H         PUBLIC        ?C?FCASTL
+  -------         ENDMOD        ?C?FCAST
+
+  -------         MODULE        ?C?CASTF
+  C:0DB4H         PUBLIC        ?C?CASTF
+  -------         ENDMOD        ?C?CASTF
+
+  -------         MODULE        ?C?COPY
+  C:0F05H         PUBLIC        ?C?COPY
+  -------         ENDMOD        ?C?COPY
+
+  -------         MODULE        ?C?CLDPTR
+  C:0F2BH         PUBLIC        ?C?CLDPTR
+  -------         ENDMOD        ?C?CLDPTR
+
+  -------         MODULE        ?C?CLDOPTR
+  C:0F44H         PUBLIC        ?C?CLDOPTR
+  -------         ENDMOD        ?C?CLDOPTR
+
+  -------         MODULE        ?C?CILDOPTR
+  C:0F71H         PUBLIC        ?C?CILDOPTR
+  -------         ENDMOD        ?C?CILDOPTR
+
+  -------         MODULE        ?C?CSTPTR
+  C:0FA4H         PUBLIC        ?C?CSTPTR
+  -------         ENDMOD        ?C?CSTPTR
+
+  -------         MODULE        ?C?CSTOPTR
+  C:0FB6H         PUBLIC        ?C?CSTOPTR
+  -------         ENDMOD        ?C?CSTOPTR
+
+  -------         MODULE        ?C?UIDIV
+BL51 BANKED LINKER/LOCATER V6.22                                                      11/16/2018  11:01:05  PAGE 19
+
+
+  C:0FD8H         PUBLIC        ?C?UIDIV
+  -------         ENDMOD        ?C?UIDIV
+
+  -------         MODULE        ?C?ILDOPTR
+  C:102DH         PUBLIC        ?C?ILDOPTR
+  -------         ENDMOD        ?C?ILDOPTR
+
+  -------         MODULE        ?C?IILDOPTR
+  C:1065H         PUBLIC        ?C?IILDOPTR
+  -------         ENDMOD        ?C?IILDOPTR
+
+  -------         MODULE        ?C?ISTOPTR
+  C:10B2H         PUBLIC        ?C?ISTOPTR
+  -------         ENDMOD        ?C?ISTOPTR
+
+  -------         MODULE        ?C?LMUL
+  C:10DFH         PUBLIC        ?C?LMUL
+  -------         ENDMOD        ?C?LMUL
+
+  -------         MODULE        ?C?LNOT
+  C:112EH         PUBLIC        ?C?LNOT
+  -------         ENDMOD        ?C?LNOT
+
+  -------         MODULE        ?C?LNEG
+  C:113BH         PUBLIC        ?C?LNEG
+  -------         ENDMOD        ?C?LNEG
+
+  -------         MODULE        ?C?ULCMP
+  C:1149H         PUBLIC        ?C?ULCMP
+  -------         ENDMOD        ?C?ULCMP
+
+  -------         MODULE        ?C?ULSHR
+  C:115AH         PUBLIC        ?C?ULSHR
+  -------         ENDMOD        ?C?ULSHR
+
+  -------         MODULE        ?C?LILDXDATA
+  C:1176H         PUBLIC        ?C?LILDXDATA
+  C:116DH         PUBLIC        ?C?LILDXDATA1
+  C:116FH         PUBLIC        ?C?LILDXDATA8
+  -------         ENDMOD        ?C?LILDXDATA
+
+  -------         MODULE        ?C?LSTXDATA
+  C:11A2H         PUBLIC        ?C?LSTXDATA
+  -------         ENDMOD        ?C?LSTXDATA
+
+  -------         MODULE        ?C?LSTKXDATA
+  C:11AEH         PUBLIC        ?C?LSTKXDATA
+  -------         ENDMOD        ?C?LSTKXDATA
+
+  -------         MODULE        ?C?LCASE
+  C:11DFH         PUBLIC        ?C?LCASE
+  -------         ENDMOD        ?C?LCASE
+
+  -------         MODULE        ?C?IILDX
+  C:1219H         PUBLIC        ?C?IILDX
+  -------         ENDMOD        ?C?IILDX
+
+BL51 BANKED LINKER/LOCATER V6.22                                                      11/16/2018  11:01:05  PAGE 20
+
+
+
+
+FUNCTION REGISTER MASKS
+
+
+FUNCTION . . . . . . . . . . . . . REG MASK
+-------------------------------------------
+
+GETAVERFLAG. . . . . . . . . . . . @0xf301
+GETCHANNELSTATE. . . . . . . . . . @0xe301
+GETDIFFFLAG. . . . . . . . . . . . @0xf301
+ISINSESSION. . . . . . . . . . . . @0xf301
+MAIN . . . . . . . . . . . . . . . @0xf003
+WAIT . . . . . . . . . . . . . . . @0x8000
+_ADC_GETRESULT . . . . . . . . . . @0xf087
+_RESETAVERFLAG . . . . . . . . . . @0xf301
+_RESETDIFFFLAG . . . . . . . . . . @0xf301
+_RESETINSESSIONFLAG. . . . . . . . @0xf301
+_SETAVERFLAG . . . . . . . . . . . @0xf301
+_SETCHANNELSTATE . . . . . . . . . @0xf301
+_SETDIFFFLAG . . . . . . . . . . . @0xf301
+_SETINSESSIONFLAG. . . . . . . . . @0xf301
+
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?STATE3_NEW2?DIAPER
+
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?ADC_INIT?DIAPER
+
+*** WARNING L1: UNRESOLVED EXTERNAL SYMBOL
+    SYMBOL:  _IAPERASESECTOR
+    MODULE:  .\Obj\diaper.obj (DIAPER)
+
+*** WARNING L1: UNRESOLVED EXTERNAL SYMBOL
+    SYMBOL:  PAGEWRITECOUNT
+    MODULE:  .\Obj\diaper.obj (DIAPER)
+
+*** WARNING L1: UNRESOLVED EXTERNAL SYMBOL
+    SYMBOL:  _DELAYMS
+    MODULE:  .\Obj\diaper.obj (DIAPER)
+
+*** WARNING L1: UNRESOLVED EXTERNAL SYMBOL
+    SYMBOL:  CHREADCOUNT
+    MODULE:  .\Obj\diaper.obj (DIAPER)
+
+*** WARNING L1: UNRESOLVED EXTERNAL SYMBOL
+    SYMBOL:  _IAPWRITEBYTE
+    MODULE:  .\Obj\diaper.obj (DIAPER)
+
+*** WARNING L1: UNRESOLVED EXTERNAL SYMBOL
+    SYMBOL:  ?_IAPWRITEBYTE?BYTE
+    MODULE:  .\Obj\diaper.obj (DIAPER)
+
+*** WARNING L1: UNRESOLVED EXTERNAL SYMBOL
+    SYMBOL:  ONEPAGECHVALUE
+    MODULE:  .\Obj\diaper.obj (DIAPER)
+
+BL51 BANKED LINKER/LOCATER V6.22                                                      11/16/2018  11:01:05  PAGE 21
+
+
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  _DELAYMS
+    MODULE:  .\Obj\diaper.obj (DIAPER)
+    ADDRESS: 124BH
+
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  CHREADCOUNT
+    MODULE:  .\Obj\diaper.obj (DIAPER)
+    ADDRESS: 1260H
+
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  ONEPAGECHVALUE
+    MODULE:  .\Obj\diaper.obj (DIAPER)
+    ADDRESS: 12CFH
+
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  ONEPAGECHVALUE
+    MODULE:  .\Obj\diaper.obj (DIAPER)
+    ADDRESS: 12D3H
+
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  ONEPAGECHVALUE
+    MODULE:  .\Obj\diaper.obj (DIAPER)
+    ADDRESS: 12EDH
+
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  ONEPAGECHVALUE
+    MODULE:  .\Obj\diaper.obj (DIAPER)
+    ADDRESS: 12F2H
+
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  ONEPAGECHVALUE
+    MODULE:  .\Obj\diaper.obj (DIAPER)
+    ADDRESS: 132AH
+
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  ONEPAGECHVALUE
+    MODULE:  .\Obj\diaper.obj (DIAPER)
+    ADDRESS: 132EH
+
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  ONEPAGECHVALUE
+    MODULE:  .\Obj\diaper.obj (DIAPER)
+    ADDRESS: 1348H
+
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  ONEPAGECHVALUE
+    MODULE:  .\Obj\diaper.obj (DIAPER)
+    ADDRESS: 134DH
+
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  ONEPAGECHVALUE
+    MODULE:  .\Obj\diaper.obj (DIAPER)
+    ADDRESS: 1354H
+
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  ONEPAGECHVALUE
+BL51 BANKED LINKER/LOCATER V6.22                                                      11/16/2018  11:01:05  PAGE 22
+
+
+    MODULE:  .\Obj\diaper.obj (DIAPER)
+    ADDRESS: 1359H
+
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  ONEPAGECHVALUE
+    MODULE:  .\Obj\diaper.obj (DIAPER)
+    ADDRESS: 1370H
+
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  ONEPAGECHVALUE
+    MODULE:  .\Obj\diaper.obj (DIAPER)
+    ADDRESS: 1375H
+
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  ONEPAGECHVALUE
+    MODULE:  .\Obj\diaper.obj (DIAPER)
+    ADDRESS: 1398H
+
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  ONEPAGECHVALUE
+    MODULE:  .\Obj\diaper.obj (DIAPER)
+    ADDRESS: 139CH
+
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  ONEPAGECHVALUE
+    MODULE:  .\Obj\diaper.obj (DIAPER)
+    ADDRESS: 13B3H
+
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  ONEPAGECHVALUE
+    MODULE:  .\Obj\diaper.obj (DIAPER)
+    ADDRESS: 13B8H
+
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  CHREADCOUNT
+    MODULE:  .\Obj\diaper.obj (DIAPER)
+    ADDRESS: 1652H
+
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  CHREADCOUNT
+    MODULE:  .\Obj\diaper.obj (DIAPER)
+    ADDRESS: 1661H
+
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  PAGEWRITECOUNT
+    MODULE:  .\Obj\diaper.obj (DIAPER)
+    ADDRESS: 166AH
+
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  _IAPERASESECTOR
+    MODULE:  .\Obj\diaper.obj (DIAPER)
+    ADDRESS: 167BH
+
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  PAGEWRITECOUNT
+    MODULE:  .\Obj\diaper.obj (DIAPER)
+    ADDRESS: 1684H
+BL51 BANKED LINKER/LOCATER V6.22                                                      11/16/2018  11:01:05  PAGE 23
+
+
+
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  ONEPAGECHVALUE
+    MODULE:  .\Obj\diaper.obj (DIAPER)
+    ADDRESS: 1697H
+
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  ONEPAGECHVALUE
+    MODULE:  .\Obj\diaper.obj (DIAPER)
+    ADDRESS: 1699H
+
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  ?_IAPWRITEBYTE?BYTE
+    MODULE:  .\Obj\diaper.obj (DIAPER)
+    ADDRESS: 169BH
+
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  _IAPWRITEBYTE
+    MODULE:  .\Obj\diaper.obj (DIAPER)
+    ADDRESS: 16A4H
+
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  PAGEWRITECOUNT
+    MODULE:  .\Obj\diaper.obj (DIAPER)
+    ADDRESS: 16A7H
+
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  PAGEWRITECOUNT
+    MODULE:  .\Obj\diaper.obj (DIAPER)
+    ADDRESS: 16C0H
+
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  _DELAYMS
+    MODULE:  .\Obj\diaper.obj (DIAPER)
+    ADDRESS: 21ADH
+
+Program Size: data=9.0 xdata=375 code=8692
+LINK/LOCATE RUN COMPLETE.  39 WARNING(S),  0 ERROR(S)

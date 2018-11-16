@@ -1,0 +1,5 @@
+".\Obj\STARTUP.obj",
+".\Obj\diaper.obj",
+".\Obj\main.obj" 
+TO ".\Obj\Stepper" REGFILE (.\Obj\Stepper.ORC) 
+PRINT(".\Lis\Stepper.m51") RAMSIZE(256) 
